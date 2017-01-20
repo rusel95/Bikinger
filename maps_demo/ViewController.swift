@@ -36,15 +36,19 @@ class ViewController: UIViewController {
         previous()
     }
     
+    //MARK: An array of Points
     let destinations = [IntermediatePoint(name: "init.dp.ua", location: CLLocationCoordinate2DMake(48.460174, 35.043961), zoom: 17),
                         IntermediatePoint(name: "Мост-Сити", location: CLLocationCoordinate2DMake(48.467262, 35.051122), zoom: 16),
                         IntermediatePoint(name: "ДИИТ", location: CLLocationCoordinate2DMake(48.435387, 35.046489), zoom: 16)]
     
+    //MARK: When view was just load
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        //So this is my kinda identifier of ios app in GoogleMaps
         GMSServices.provideAPIKey("AIzaSyB_EZxn5ma7uGtxLPPnfkIbKIpazFxKKNQ")
     
+        //MARK: Default position of a camera
         let camera = GMSCameraPosition.camera(withLatitude: destinations[currentDestinationId].location.latitude, longitude: destinations[currentDestinationId].location.longitude, zoom: destinations[currentDestinationId].zoom)
         
         mapView = GMSMapView.map(withFrame: CGRect(origin: CGPoint(x: 0,y :0), size: CGSize(width: 100, height: 100)), camera: camera)
@@ -59,11 +63,11 @@ class ViewController: UIViewController {
         mapView?.mapType = kGMSTypeHybrid
         self.view = mapView
         
-        //navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Destination", style: .plain, target: self, action: "next")
     }
     
     
 
+    //MARK: next/previos buttons functions
     func next() {
         if currentDestinationId < destinations.count - 1
         {
@@ -79,6 +83,7 @@ class ViewController: UIViewController {
         }
     }
     
+    //MARK: I can set my camera in needed position using this function
     private func setCamera(id: Int) {
         CATransaction.begin()
         CATransaction.setValue(6, forKey: kCATransactionAnimationDuration)
