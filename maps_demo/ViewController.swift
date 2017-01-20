@@ -8,6 +8,7 @@
 
 import UIKit
 import GoogleMaps
+import GooglePlaces
 
 class Point {
     var name = String()
@@ -34,6 +35,13 @@ class ViewController: UIViewController {
     
     @IBAction func previousDestinationButton(_ sender: Any) {
         previous()
+    }
+    
+    //MARK: search button
+    @IBAction func onLaunchClicked(_ sender: Any) {
+        let acController = GMSAutocompleteViewController()
+        acController.delegate = self
+        present(acController, animated: true, completion: nil)
     }
     
     //MARK: An array of Points
@@ -92,5 +100,28 @@ class ViewController: UIViewController {
         marker.map = mapView
     }
 
+}
+
+extension ViewController: GMSAutocompleteViewControllerDelegate {
+    
+    // Handle the user's selection.
+    func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
+        print("Place name: \(place.name)")
+        print("Place address: \(place.formattedAddress)")
+        print("Place attributions: \(place.attributions)")
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func viewController(_ viewController: GMSAutocompleteViewController, didFailAutocompleteWithError error: Error) {
+        // TODO: handle the error.
+        print("Error: \(error)")
+        dismiss(animated: true, completion: nil)
+    }
+    
+    // User cancelled the operation.
+    func wasCancelled(_ viewController: GMSAutocompleteViewController) {
+        print("Autocomplete was cancelled.")
+        dismiss(animated: true, completion: nil)
+    }
 }
 

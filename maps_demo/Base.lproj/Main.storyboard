@@ -28,7 +28,7 @@
                             </barButtonItem>
                             <barButtonItem systemItem="search" id="eWh-4e-vjz">
                                 <connections>
-                                    <action selector="onLaunchClicked:" destination="BYZ-38-t0r" id="pJ7-8f-NMJ"/>
+                                    <action selector="onLaunchClicked:" destination="BYZ-38-t0r" id="pRS-8b-Ter"/>
                                 </connections>
                             </barButtonItem>
                         </rightBarButtonItems>
