@@ -9,7 +9,7 @@
 import UIKit
 import GoogleMaps
 
-class IntermediatePoint {
+class Point {
     var name = String()
     var location = CLLocationCoordinate2D()
     var zoom: Float
@@ -37,9 +37,10 @@ class ViewController: UIViewController {
     }
     
     //MARK: An array of Points
-    let destinations = [IntermediatePoint(name: "init.dp.ua", location: CLLocationCoordinate2DMake(48.460174, 35.043961), zoom: 17),
-                        IntermediatePoint(name: "Мост-Сити", location: CLLocationCoordinate2DMake(48.467262, 35.051122), zoom: 16),
-                        IntermediatePoint(name: "ДИИТ", location: CLLocationCoordinate2DMake(48.435387, 35.046489), zoom: 16)]
+    let startPoint = Point(name: "init.dp.ua", location: CLLocationCoordinate2DMake(48.465401, 35.028503), zoom: 12)
+    let intermediatePoints = [Point(name: "init.dp.ua", location: CLLocationCoordinate2DMake(48.460174, 35.043961), zoom: 17),
+                        Point(name: "Мост-Сити", location: CLLocationCoordinate2DMake(48.467262, 35.051122), zoom: 16),
+                        Point(name: "ДИИТ", location: CLLocationCoordinate2DMake(48.435387, 35.046489), zoom: 16)]
     
     //MARK: When view was just load
     override func viewDidLoad() {
@@ -49,27 +50,20 @@ class ViewController: UIViewController {
         GMSServices.provideAPIKey("AIzaSyB_EZxn5ma7uGtxLPPnfkIbKIpazFxKKNQ")
     
         //MARK: Default position of a camera
-        let camera = GMSCameraPosition.camera(withLatitude: destinations[currentDestinationId].location.latitude, longitude: destinations[currentDestinationId].location.longitude, zoom: destinations[currentDestinationId].zoom)
+        let camera = GMSCameraPosition.camera(withLatitude: startPoint.location.latitude, longitude: startPoint.location.longitude, zoom: startPoint.zoom)
         
         mapView = GMSMapView.map(withFrame: CGRect(origin: CGPoint(x: 0,y :0), size: CGSize(width: 100, height: 100)), camera: camera)
         
-        let marker = GMSMarker.init()
-        marker.position = camera.target
-        marker.title = "Init.dp.ua"
-        marker.snippet = "the best IT-school"
-        marker.appearAnimation = kGMSMarkerAnimationPop
-        marker.map = mapView
-        
         mapView?.mapType = kGMSTypeHybrid
-        self.view = mapView
         
-    }
+        self.view = mapView
+}
     
     
 
     //MARK: next/previos buttons functions
     func next() {
-        if currentDestinationId < destinations.count - 1
+        if currentDestinationId < intermediatePoints.count - 1
         {
             currentDestinationId += 1
             setCamera(id: currentDestinationId)
@@ -88,12 +82,12 @@ class ViewController: UIViewController {
         CATransaction.begin()
         CATransaction.setValue(6, forKey: kCATransactionAnimationDuration)
         
-        mapView?.animate(to: GMSCameraPosition.camera(withTarget: destinations[id].location, zoom: destinations[id].zoom))
+        mapView?.animate(to: GMSCameraPosition.camera(withTarget: intermediatePoints[id].location, zoom: intermediatePoints[id].zoom))
         
         CATransaction.commit()
         
-        let marker = GMSMarker(position: destinations[id].location)
-        marker.title = destinations[id].name
+        let marker = GMSMarker(position: intermediatePoints[id].location)
+        marker.title = intermediatePoints[id].name
         marker.appearAnimation = kGMSMarkerAnimationPop
         marker.map = mapView
     }
