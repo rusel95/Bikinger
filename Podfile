@@ -6,5 +6,6 @@ target 'maps_demo' do
   use_frameworks!
 
   pod 'GoogleMaps'
+  pod 'GooglePlaces'
   
 end
