@@ -68,13 +68,12 @@ class ViewController: UIViewController {
         //MARK: Default position of a camera
         let camera = GMSCameraPosition.camera(withLatitude: startPoint.location.latitude, longitude: startPoint.location.longitude, zoom: startPoint.zoom)
         
-        mapView = GMSMapView.map(withFrame: CGRect(origin: CGPoint(x: 0,y :0), size: CGSize(width: 300 , height: 100)), camera: camera)
+        mapView = GMSMapView.map(withFrame: CGRect(origin: CGPoint(x: 0,y :0), size: CGSize(width: mainView.frame.width, height: mainView.frame.height)), camera: camera)
         
         mapView?.mapType = kGMSTypeHybrid
         
         mainView = mapView
-        //mapViewScreen = mapView
-        self.view = mapView!
+        self.view.addSubview(mainView)
         self.view.addSubview(startPointTextField)
         self.view.addSubview(finishPointTextEdit)
 }
