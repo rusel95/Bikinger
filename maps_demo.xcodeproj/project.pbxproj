@@ -123,7 +123,7 @@
 				TargetAttributes = {
 					84F020C11E31FB1300F7EE62 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = LA63VPYA3R;
+						DevelopmentTeam = FWHF624C4H;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -335,7 +335,7 @@
 			baseConfigurationReference = 7C999AB76BFFFBCAC54C3009 /* Pods-maps_demo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = LA63VPYA3R;
+				DEVELOPMENT_TEAM = FWHF624C4H;
 				INFOPLIST_FILE = maps_demo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.rusel95.maps-demo";
@@ -349,7 +349,7 @@
 			baseConfigurationReference = 6762F448C6967160C7E040E0 /* Pods-maps_demo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = LA63VPYA3R;
+				DEVELOPMENT_TEAM = FWHF624C4H;
 				INFOPLIST_FILE = maps_demo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.rusel95.maps-demo";
@@ -377,6 +377,7 @@
 				84F020D61E31FB1300F7EE62 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
