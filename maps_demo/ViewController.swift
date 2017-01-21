@@ -62,8 +62,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        //So this is my kinda identifier of ios app in GoogleMaps
-        GMSServices.provideAPIKey("AIzaSyB_EZxn5ma7uGtxLPPnfkIbKIpazFxKKNQ")
+        
     
         //MARK: Default position of a camera
         let camera = GMSCameraPosition.camera(withLatitude: startPoint.location.latitude, longitude: startPoint.location.longitude, zoom: startPoint.zoom)
