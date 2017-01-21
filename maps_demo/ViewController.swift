@@ -25,7 +25,11 @@ class Point {
 
 class ViewController: UIViewController {
 
+    @IBOutlet var mainView: UIView!
+    
     var mapView: GMSMapView?
+    
+    @IBOutlet weak var mapViewScreen: UIView!
     
     var currentDestinationId = 0
     
@@ -36,6 +40,10 @@ class ViewController: UIViewController {
     @IBAction func previousDestinationButton(_ sender: Any) {
         previous()
     }
+    
+    @IBOutlet weak var startPointTextField: UITextField!
+    
+    @IBOutlet weak var finishPointTextEdit: UITextField!
     
     //MARK: search button
     @IBAction func onLaunchClicked(_ sender: Any) {
@@ -60,12 +68,17 @@ class ViewController: UIViewController {
         //MARK: Default position of a camera
         let camera = GMSCameraPosition.camera(withLatitude: startPoint.location.latitude, longitude: startPoint.location.longitude, zoom: startPoint.zoom)
         
-        mapView = GMSMapView.map(withFrame: CGRect(origin: CGPoint(x: 0,y :0), size: CGSize(width: 100, height: 100)), camera: camera)
+        mapView = GMSMapView.map(withFrame: CGRect(origin: CGPoint(x: 0,y :0), size: CGSize(width: 300 , height: 100)), camera: camera)
         
         mapView?.mapType = kGMSTypeHybrid
         
-        self.view = mapView
+        mainView = mapView
+        //mapViewScreen = mapView
+        self.view = mapView!
+        self.view.addSubview(startPointTextField)
+        self.view.addSubview(finishPointTextEdit)
 }
+    
     
     
 

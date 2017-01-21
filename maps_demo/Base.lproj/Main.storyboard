@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -14,6 +15,37 @@
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="maps_demo" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Dd7-VR-JrA"/>
+                        <viewControllerLayoutGuide type="bottom" id="Mki-hf-LZm"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="9od-Ki-a0d" userLabel="mainView">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="K1d-4f-UeF">
+                                <rect key="frame" x="94" y="617" width="187" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tv5-5P-Dzv">
+                                <rect key="frame" x="94" y="527" width="187" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="tv5-5P-Dzv" firstAttribute="centerX" secondItem="9od-Ki-a0d" secondAttribute="centerX" id="Oi2-nR-T8Y"/>
+                            <constraint firstItem="K1d-4f-UeF" firstAttribute="top" secondItem="tv5-5P-Dzv" secondAttribute="bottom" constant="60" id="QA5-JD-OIO"/>
+                            <constraint firstItem="Mki-hf-LZm" firstAttribute="top" secondItem="K1d-4f-UeF" secondAttribute="bottom" constant="20" id="VYu-RG-tUB"/>
+                            <constraint firstItem="tv5-5P-Dzv" firstAttribute="width" secondItem="9od-Ki-a0d" secondAttribute="width" multiplier="0.5" id="kYz-gU-oAV"/>
+                            <constraint firstItem="K1d-4f-UeF" firstAttribute="centerX" secondItem="9od-Ki-a0d" secondAttribute="centerX" id="sTH-9U-dPR"/>
+                            <constraint firstItem="K1d-4f-UeF" firstAttribute="width" secondItem="9od-Ki-a0d" secondAttribute="width" multiplier="0.5" id="yYH-yW-3WE"/>
+                        </constraints>
+                    </view>
                     <navigationItem key="navigationItem" id="g89-0D-uN9">
                         <barButtonItem key="leftBarButtonItem" title="previous" id="rPq-OY-Y8Y">
                             <connections>
@@ -34,7 +66,10 @@
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
+                        <outlet property="finishPointTextEdit" destination="K1d-4f-UeF" id="bdS-mB-czd"/>
+                        <outlet property="mainView" destination="9od-Ki-a0d" id="yvb-2S-v9N"/>
                         <outlet property="searchDisplayController" destination="Q9J-8b-SiO" id="P5G-FT-Rc8"/>
+                        <outlet property="startPointTextField" destination="tv5-5P-Dzv" id="Xmb-Fq-DNJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -62,7 +97,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="zly-7x-Dmk" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="snj-mQ-JV8">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="snj-mQ-JV8">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
