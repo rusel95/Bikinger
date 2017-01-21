@@ -7,5 +7,4 @@ target 'maps_demo' do
 
   pod 'GoogleMaps'
   pod 'GooglePlaces'
-  
 end
