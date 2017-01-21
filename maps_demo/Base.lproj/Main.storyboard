@@ -23,14 +23,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="K1d-4f-UeF">
-                                <rect key="frame" x="94" y="617" width="187" height="30"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="адрес прибытия" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="K1d-4f-UeF">
+                                <rect key="frame" x="56" y="627" width="263" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tv5-5P-Dzv">
-                                <rect key="frame" x="94" y="527" width="187" height="30"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="адрес отправки" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tv5-5P-Dzv">
+                                <rect key="frame" x="56" y="587" width="263" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -39,11 +39,11 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="tv5-5P-Dzv" firstAttribute="centerX" secondItem="9od-Ki-a0d" secondAttribute="centerX" id="Oi2-nR-T8Y"/>
-                            <constraint firstItem="K1d-4f-UeF" firstAttribute="top" secondItem="tv5-5P-Dzv" secondAttribute="bottom" constant="60" id="QA5-JD-OIO"/>
-                            <constraint firstItem="Mki-hf-LZm" firstAttribute="top" secondItem="K1d-4f-UeF" secondAttribute="bottom" constant="20" id="VYu-RG-tUB"/>
-                            <constraint firstItem="tv5-5P-Dzv" firstAttribute="width" secondItem="9od-Ki-a0d" secondAttribute="width" multiplier="0.5" id="kYz-gU-oAV"/>
+                            <constraint firstItem="Mki-hf-LZm" firstAttribute="top" secondItem="K1d-4f-UeF" secondAttribute="bottom" constant="10" id="fZl-sq-oYn"/>
+                            <constraint firstItem="K1d-4f-UeF" firstAttribute="top" secondItem="tv5-5P-Dzv" secondAttribute="bottom" constant="10" id="hXr-Y1-0jq"/>
+                            <constraint firstItem="tv5-5P-Dzv" firstAttribute="width" secondItem="9od-Ki-a0d" secondAttribute="width" multiplier="0.7" id="kYz-gU-oAV"/>
                             <constraint firstItem="K1d-4f-UeF" firstAttribute="centerX" secondItem="9od-Ki-a0d" secondAttribute="centerX" id="sTH-9U-dPR"/>
-                            <constraint firstItem="K1d-4f-UeF" firstAttribute="width" secondItem="9od-Ki-a0d" secondAttribute="width" multiplier="0.5" id="yYH-yW-3WE"/>
+                            <constraint firstItem="K1d-4f-UeF" firstAttribute="width" secondItem="9od-Ki-a0d" secondAttribute="width" multiplier="0.7" id="yYH-yW-3WE"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="g89-0D-uN9">
@@ -97,7 +97,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="zly-7x-Dmk" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="snj-mQ-JV8">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="snj-mQ-JV8">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
