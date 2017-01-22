@@ -32,7 +32,7 @@ class Place {
         self.zoom = zoom
     }
     
-    func getLocation() -> CLLocationCoordinate2D {
+    private func getLocation() -> CLLocationCoordinate2D {
         var tempLocation = CLLocationCoordinate2D()
         
         let urlpath = "https://maps.googleapis.com/maps/api/geocode/json?address=\(self.address)&sensor=false".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
@@ -51,7 +51,7 @@ class Place {
                     tempLocation.longitude = lon
                     tempLocation.latitude = lat
                     
-                    //print(dic, lon, lat , self.address.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!)
+                    print(tempLocation, lat , self.address.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!)
                 }
                 
             } catch {
@@ -61,6 +61,20 @@ class Place {
         
         task.resume()
         return tempLocation
+    }
+    
+    func setCamera(mapView: GMSMapView) {
+        CATransaction.begin()
+        CATransaction.setValue(6, forKey: kCATransactionAnimationDuration)
+        
+        mapView.animate(to: GMSCameraPosition.camera(withTarget: location, zoom: zoom))
+        
+        CATransaction.commit()
+        
+        let marker = GMSMarker(position: location)
+        marker.title = name
+        marker.appearAnimation = kGMSMarkerAnimationPop
+        marker.map = mapView
     }
     
 }

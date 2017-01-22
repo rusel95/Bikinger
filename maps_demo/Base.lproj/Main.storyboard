@@ -35,6 +35,11 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F5i-Qb-ThR">
+                                <rect key="frame" x="164" y="528" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -68,27 +73,10 @@
                     <connections>
                         <outlet property="finishPlaceTextEdit" destination="K1d-4f-UeF" id="sZ6-G4-rhP"/>
                         <outlet property="mainView" destination="9od-Ki-a0d" id="yvb-2S-v9N"/>
-                        <outlet property="searchDisplayController" destination="Q9J-8b-SiO" id="P5G-FT-Rc8"/>
                         <outlet property="startPlaceTextEdit" destination="tv5-5P-Dzv" id="Gct-Uv-QVn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-                <searchDisplayController id="FXD-eO-Z7Q">
-                    <connections>
-                        <outlet property="delegate" destination="BYZ-38-t0r" id="Jsq-Yv-U3a"/>
-                        <outlet property="searchContentsController" destination="BYZ-38-t0r" id="lCT-4I-TSJ"/>
-                        <outlet property="searchResultsDataSource" destination="BYZ-38-t0r" id="WDO-Uz-uhf"/>
-                        <outlet property="searchResultsDelegate" destination="BYZ-38-t0r" id="QkL-ld-F86"/>
-                    </connections>
-                </searchDisplayController>
-                <searchDisplayController id="Q9J-8b-SiO">
-                    <connections>
-                        <outlet property="delegate" destination="BYZ-38-t0r" id="oDP-ps-WsP"/>
-                        <outlet property="searchContentsController" destination="BYZ-38-t0r" id="RdV-Fy-itX"/>
-                        <outlet property="searchResultsDataSource" destination="BYZ-38-t0r" id="yNn-QA-yXi"/>
-                        <outlet property="searchResultsDelegate" destination="BYZ-38-t0r" id="u4Z-Md-pBL"/>
-                    </connections>
-                </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="999" y="-561"/>
         </scene>
@@ -97,7 +85,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="zly-7x-Dmk" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="snj-mQ-JV8">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="snj-mQ-JV8">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
