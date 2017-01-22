@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="zly-7x-Dmk">
-    <device id="retina4_7" orientation="portrait">
+    <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
-        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -20,28 +19,42 @@
                         <viewControllerLayoutGuide type="bottom" id="Mki-hf-LZm"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="9od-Ki-a0d" userLabel="mainView">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="адрес прибытия" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="K1d-4f-UeF">
-                                <rect key="frame" x="56" y="627" width="263" height="30"/>
+                                <rect key="frame" x="48" y="528" width="224" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="finishPlaceTextEditAction:" destination="BYZ-38-t0r" eventType="editingDidBegin" id="ZdI-ZR-SXA"/>
+                                </connections>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="адрес отправки" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tv5-5P-Dzv">
-                                <rect key="frame" x="56" y="587" width="263" height="30"/>
+                                <rect key="frame" x="48" y="488" width="224" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="startPlaceTextEditAction:" destination="BYZ-38-t0r" eventType="editingDidBegin" id="t20-tp-eCg"/>
+                                </connections>
                             </textField>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VuB-EN-cpo">
+                                <rect key="frame" x="0.0" y="64" width="320" height="426"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="VuB-EN-cpo" firstAttribute="centerX" secondItem="9od-Ki-a0d" secondAttribute="centerX" id="0Lc-F0-3Vy"/>
+                            <constraint firstItem="VuB-EN-cpo" firstAttribute="width" secondItem="9od-Ki-a0d" secondAttribute="width" id="4Bm-4I-RRc"/>
                             <constraint firstItem="tv5-5P-Dzv" firstAttribute="centerX" secondItem="9od-Ki-a0d" secondAttribute="centerX" id="Oi2-nR-T8Y"/>
                             <constraint firstItem="Mki-hf-LZm" firstAttribute="top" secondItem="K1d-4f-UeF" secondAttribute="bottom" constant="10" id="fZl-sq-oYn"/>
                             <constraint firstItem="K1d-4f-UeF" firstAttribute="top" secondItem="tv5-5P-Dzv" secondAttribute="bottom" constant="10" id="hXr-Y1-0jq"/>
+                            <constraint firstItem="VuB-EN-cpo" firstAttribute="top" secondItem="Dd7-VR-JrA" secondAttribute="bottom" id="kEj-LU-mxP"/>
                             <constraint firstItem="tv5-5P-Dzv" firstAttribute="width" secondItem="9od-Ki-a0d" secondAttribute="width" multiplier="0.7" id="kYz-gU-oAV"/>
+                            <constraint firstItem="VuB-EN-cpo" firstAttribute="height" secondItem="9od-Ki-a0d" secondAttribute="height" multiplier="0.75" id="rh6-Ob-VeI"/>
                             <constraint firstItem="K1d-4f-UeF" firstAttribute="centerX" secondItem="9od-Ki-a0d" secondAttribute="centerX" id="sTH-9U-dPR"/>
                             <constraint firstItem="K1d-4f-UeF" firstAttribute="width" secondItem="9od-Ki-a0d" secondAttribute="width" multiplier="0.7" id="yYH-yW-3WE"/>
                         </constraints>
@@ -52,52 +65,38 @@
                                 <action selector="previousDestinationButton:" destination="BYZ-38-t0r" id="tMu-be-8L4"/>
                             </connections>
                         </barButtonItem>
-                        <rightBarButtonItems>
-                            <barButtonItem title="next" id="zAO-qN-zLG">
-                                <connections>
-                                    <action selector="nextDestinationButton:" destination="BYZ-38-t0r" id="4dz-m2-lfU"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem systemItem="search" id="eWh-4e-vjz">
-                                <connections>
-                                    <action selector="onLaunchClicked:" destination="BYZ-38-t0r" id="pRS-8b-Ter"/>
-                                </connections>
-                            </barButtonItem>
-                        </rightBarButtonItems>
+                        <barButtonItem key="rightBarButtonItem" title="next" id="zAO-qN-zLG">
+                            <connections>
+                                <action selector="nextDestinationButton:" destination="BYZ-38-t0r" id="4dz-m2-lfU"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="finishPointTextEdit" destination="K1d-4f-UeF" id="bdS-mB-czd"/>
+                        <outlet property="finishPlaceTextEdit" destination="K1d-4f-UeF" id="sZ6-G4-rhP"/>
+                        <outlet property="googleView" destination="VuB-EN-cpo" id="aAY-j2-gfd"/>
                         <outlet property="mainView" destination="9od-Ki-a0d" id="yvb-2S-v9N"/>
-                        <outlet property="searchDisplayController" destination="Q9J-8b-SiO" id="P5G-FT-Rc8"/>
-                        <outlet property="startPointTextField" destination="tv5-5P-Dzv" id="Xmb-Fq-DNJ"/>
+                        <outlet property="searchDisplayController" destination="9Yt-5a-mNn" id="HUM-9L-6Si"/>
+                        <outlet property="startPlaceTextEdit" destination="tv5-5P-Dzv" id="Gct-Uv-QVn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-                <searchDisplayController id="FXD-eO-Z7Q">
+                <searchDisplayController id="9Yt-5a-mNn">
                     <connections>
-                        <outlet property="delegate" destination="BYZ-38-t0r" id="Jsq-Yv-U3a"/>
-                        <outlet property="searchContentsController" destination="BYZ-38-t0r" id="lCT-4I-TSJ"/>
-                        <outlet property="searchResultsDataSource" destination="BYZ-38-t0r" id="WDO-Uz-uhf"/>
-                        <outlet property="searchResultsDelegate" destination="BYZ-38-t0r" id="QkL-ld-F86"/>
-                    </connections>
-                </searchDisplayController>
-                <searchDisplayController id="Q9J-8b-SiO">
-                    <connections>
-                        <outlet property="delegate" destination="BYZ-38-t0r" id="oDP-ps-WsP"/>
-                        <outlet property="searchContentsController" destination="BYZ-38-t0r" id="RdV-Fy-itX"/>
-                        <outlet property="searchResultsDataSource" destination="BYZ-38-t0r" id="yNn-QA-yXi"/>
-                        <outlet property="searchResultsDelegate" destination="BYZ-38-t0r" id="u4Z-Md-pBL"/>
+                        <outlet property="delegate" destination="BYZ-38-t0r" id="qsX-ED-1HK"/>
+                        <outlet property="searchContentsController" destination="BYZ-38-t0r" id="k2t-76-5qU"/>
+                        <outlet property="searchResultsDataSource" destination="BYZ-38-t0r" id="aNv-IV-fpE"/>
+                        <outlet property="searchResultsDelegate" destination="BYZ-38-t0r" id="wTA-jK-2fR"/>
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="999" y="-561"/>
+            <point key="canvasLocation" x="997.60000000000002" y="-561.76911544227892"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="io7-4v-8fm">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="zly-7x-Dmk" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="snj-mQ-JV8">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="snj-mQ-JV8">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

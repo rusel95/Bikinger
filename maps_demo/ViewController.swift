@@ -10,29 +10,22 @@ import UIKit
 import GoogleMaps
 import GooglePlaces
 
-class Point {
-    var name = String()
-    var location = CLLocationCoordinate2D()
-    var zoom: Float
 
-    //var points = []
-    init(name: String, location: CLLocationCoordinate2D, zoom: Float){
-        self.name = name
-        self.location = location
-        self.zoom = zoom
-    }
-}
 
 class ViewController: UIViewController, UISearchBarDelegate {
-
+    
+    
     @IBOutlet var mainView: UIView!
     
     var mapView: GMSMapView?
     
     @IBOutlet weak var mapViewScreen: UIView!
     
-    var currentDestinationId = 0
+    @IBOutlet weak var googleView: UIView!
     
+    var currentPlaceId = 0
+    //var myCamera = GoogleCamera()
+
     @IBAction func nextDestinationButton(_ sender: Any) {
         next()
     }
@@ -41,87 +34,85 @@ class ViewController: UIViewController, UISearchBarDelegate {
         previous()
     }
     
-    @IBOutlet weak var startPointTextField: UITextField!
     
-    @IBOutlet weak var finishPointTextEdit: UITextField!
+    @IBOutlet weak var startPlaceTextEdit: UITextField!
     
-    //MARK: search button
-    @IBAction func onLaunchClicked(_ sender: Any) {
+    @IBAction func startPlaceTextEditAction(_ sender: Any) {
         let acController = GMSAutocompleteViewController()
         acController.delegate = self
         present(acController, animated: true, completion: nil)
+        startPlaceTextEdit.text = intermediatePlaces[intermediatePlaces.endIndex - 1].address
     }
     
-    //MARK: An array of Points
-    let startPoint = Point(name: "init.dp.ua", location: CLLocationCoordinate2DMake(48.465401, 35.028503), zoom: 12)
-    let intermediatePoints = [Point(name: "init.dp.ua", location: CLLocationCoordinate2DMake(48.460174, 35.043961), zoom: 17),
-                        Point(name: "Мост-Сити", location: CLLocationCoordinate2DMake(48.467262, 35.051122), zoom: 16),
-                        Point(name: "ДИИТ", location: CLLocationCoordinate2DMake(48.435387, 35.046489), zoom: 16)]
+    @IBOutlet weak var finishPlaceTextEdit: UITextField!
     
+    @IBAction func finishPlaceTextEditAction(_ sender: Any) {
+        let acController = GMSAutocompleteViewController()
+        acController.delegate = self
+        present(acController, animated: true, completion: nil)
+        finishPlaceTextEdit.text = intermediatePlaces[intermediatePlaces.endIndex - 1].address
+    }
+        
     //MARK: When view was just load
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-    
-        //MARK: Default position of a camera
-        let camera = GMSCameraPosition.camera(withLatitude: startPoint.location.latitude, longitude: startPoint.location.longitude, zoom: startPoint.zoom)
         
-        mapView = GMSMapView.map(withFrame: CGRect(origin: CGPoint(x: 0,y :0), size: CGSize(width: mainView.frame.width, height: mainView.frame.height)), camera: camera)
+        //MARK: Default position of a camera
+        let camera = GMSCameraPosition.camera(withLatitude: defaultPlace.location.latitude, longitude: defaultPlace.location.longitude, zoom: defaultPlace.zoom)
+        
+        mapView = GMSMapView.map(withFrame: CGRect(origin: CGPoint(x: 0,y :0), size: CGSize(width: googleView.frame.width, height: googleView.frame.height)), camera: camera)
         
         mapView?.mapType = kGMSTypeHybrid
         
-        mainView = mapView
-        self.view.addSubview(mainView)
-        self.view.addSubview(startPointTextField)
-        self.view.addSubview(finishPointTextEdit)
+        googleView = mapView
+        
+        self.view.addSubview(googleView)
+        //mainView = googleView
+        
+        //self.view.addSubview(mainView)
+        //self.view.addSubview(startPlaceTextEdit)
+        //self.view.addSubview(finishPlaceTextEdit)
     }
     
     
     
-
+    
     //MARK: next/previos buttons functions
     func next() {
-        if currentDestinationId < intermediatePoints.count - 1
-    {
-            currentDestinationId += 1
-            setCamera(id: currentDestinationId)
+        if currentPlaceId < intermediatePlaces.count - 1
+        {
+            currentPlaceId += 1
+            //setCamera(id: currentPlaceId)
+            intermediatePlaces[currentPlaceId].setCamera(mapView: mapView!)
         }
     }
     
     func previous() {
-        if currentDestinationId > 0 {
-            currentDestinationId -= 1
-            setCamera(id: currentDestinationId)
+        if currentPlaceId > 0 {
+            currentPlaceId -= 1
+            intermediatePlaces[currentPlaceId].setCamera(mapView: mapView!)
         }
     }
     
-    //MARK: I can set my camera in needed position using this function
-    private func setCamera(id: Int) {
-        CATransaction.begin()
-        CATransaction.setValue(6, forKey: kCATransactionAnimationDuration)
-        
-        mapView?.animate(to: GMSCameraPosition.camera(withTarget: intermediatePoints[id].location, zoom: intermediatePoints[id].zoom))
-        
-        CATransaction.commit()
-        
-        let marker = GMSMarker(position: intermediatePoints[id].location)
-        marker.title = intermediatePoints[id].name
-        marker.appearAnimation = kGMSMarkerAnimationPop
-        marker.map = mapView
-    }
-
 }
 
 extension ViewController: GMSAutocompleteViewControllerDelegate {
     
     // Handle the user's selection.
     func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
-        print("Place name: \(place.name)")
+        /*print("Place name: \(place.name)")
         print("Place address: \(place.formattedAddress)")
-        print("Place attributions: \(place.attributions)")
-        startPointTextField.text = place.name
-        finishPointTextEdit.text = place.formattedAddress
+        print("Place attributions: \(place.attributions)")*/
+        
+        let tempPoint = Place(name: place.name, address: place.formattedAddress!, zoom: 11)
+        //print(tempPoint.address, tempPoint.location)
+        
+        intermediatePlaces.append(tempPoint)
+        intermediatePlaces[intermediatePlaces.endIndex - 1].setCamera(mapView: mapView!)
+        //print(intermediatePlaces[intermediatePlaces.endIndex - 1].address, intermediatePlaces[intermediatePlaces.endIndex - 1].location)
+        
         dismiss(animated: true, completion: nil)
     }
     
