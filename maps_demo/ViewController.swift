@@ -40,12 +40,6 @@ class ViewController: UIViewController, UISearchBarDelegate {
         present(acController, animated: true, completion: nil)
     }
     
-    //MARK: An array of Places
-    let startPlace = Place(name: "init.dp.ua", location: CLLocationCoordinate2DMake(48.465401, 35.028503), zoom: 12)
-    let intermediatePlaces = [Place(name: "init.dp.ua", location: CLLocationCoordinate2DMake(48.460174, 35.043961), zoom: 17),
-                        Place(name: "Мост-Сити", location: CLLocationCoordinate2DMake(48.467262, 35.051122), zoom: 16),
-                        Place(name: "ДИИТ", location: CLLocationCoordinate2DMake(48.435387, 35.046489), zoom: 16)]
-    
     //MARK: When view was just load
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,13 +47,14 @@ class ViewController: UIViewController, UISearchBarDelegate {
         
     
         //MARK: Default position of a camera
-        let camera = GMSCameraPosition.camera(withLatitude: startPlace.location.latitude, longitude: startPlace.location.longitude, zoom: startPlace.zoom)
+        let camera = GMSCameraPosition.camera(withLatitude: defaultPlace.location.latitude, longitude: defaultPlace.location.longitude, zoom: defaultPlace.zoom)
         
         mapView = GMSMapView.map(withFrame: CGRect(origin: CGPoint(x: 0,y :0), size: CGSize(width: mainView.frame.width, height: mainView.frame.height)), camera: camera)
         
         mapView?.mapType = kGMSTypeHybrid
         
         mainView = mapView
+        
         self.view.addSubview(mainView)
         self.view.addSubview(startPlaceTextEdit)
         self.view.addSubview(finishPlaceTextEdit)
@@ -109,8 +104,10 @@ extension ViewController: GMSAutocompleteViewControllerDelegate {
         print("Place address: \(place.formattedAddress)")
         print("Place attributions: \(place.attributions)")
         
-        startPlaceTextEdit.text = place.name
-        finishPlaceTextEdit.text = place.formattedAddress
+        let tempPoint = Place(name: place.name, address: place.formattedAddress!, zoom: 19)
+        
+        intermediatePlaces.append(tempPoint)
+                
         dismiss(animated: true, completion: nil)
     }
     
