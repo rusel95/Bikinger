@@ -117,7 +117,7 @@ extension ViewController: GMSAutocompleteViewControllerDelegate {
     }
     
     func viewController(_ viewController: GMSAutocompleteViewController, didFailAutocompleteWithError error: Error) {
-        // TODO: handle the error.
+        
         print("Error: \(error)")
         dismiss(animated: true, completion: nil)
     }
