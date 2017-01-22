@@ -66,10 +66,10 @@
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
-                        <outlet property="finishPointTextEdit" destination="K1d-4f-UeF" id="bdS-mB-czd"/>
+                        <outlet property="finishPlaceTextEdit" destination="K1d-4f-UeF" id="sZ6-G4-rhP"/>
                         <outlet property="mainView" destination="9od-Ki-a0d" id="yvb-2S-v9N"/>
                         <outlet property="searchDisplayController" destination="Q9J-8b-SiO" id="P5G-FT-Rc8"/>
-                        <outlet property="startPointTextField" destination="tv5-5P-Dzv" id="Xmb-Fq-DNJ"/>
+                        <outlet property="startPlaceTextEdit" destination="tv5-5P-Dzv" id="Gct-Uv-QVn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

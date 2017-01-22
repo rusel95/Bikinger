@@ -10,19 +10,6 @@ import UIKit
 import GoogleMaps
 import GooglePlaces
 
-class Point {
-    var name = String()
-    var location = CLLocationCoordinate2D()
-    var zoom: Float
-
-    //var points = []
-    init(name: String, location: CLLocationCoordinate2D, zoom: Float){
-        self.name = name
-        self.location = location
-        self.zoom = zoom
-    }
-}
-
 class ViewController: UIViewController, UISearchBarDelegate {
 
     @IBOutlet var mainView: UIView!
@@ -41,9 +28,10 @@ class ViewController: UIViewController, UISearchBarDelegate {
         previous()
     }
     
-    @IBOutlet weak var startPointTextField: UITextField!
     
-    @IBOutlet weak var finishPointTextEdit: UITextField!
+    @IBOutlet weak var startPlaceTextEdit: UITextField!
+    
+    @IBOutlet weak var finishPlaceTextEdit: UITextField!
     
     //MARK: search button
     @IBAction func onLaunchClicked(_ sender: Any) {
@@ -52,11 +40,11 @@ class ViewController: UIViewController, UISearchBarDelegate {
         present(acController, animated: true, completion: nil)
     }
     
-    //MARK: An array of Points
-    let startPoint = Point(name: "init.dp.ua", location: CLLocationCoordinate2DMake(48.465401, 35.028503), zoom: 12)
-    let intermediatePoints = [Point(name: "init.dp.ua", location: CLLocationCoordinate2DMake(48.460174, 35.043961), zoom: 17),
-                        Point(name: "Мост-Сити", location: CLLocationCoordinate2DMake(48.467262, 35.051122), zoom: 16),
-                        Point(name: "ДИИТ", location: CLLocationCoordinate2DMake(48.435387, 35.046489), zoom: 16)]
+    //MARK: An array of Places
+    let startPlace = Place(name: "init.dp.ua", location: CLLocationCoordinate2DMake(48.465401, 35.028503), zoom: 12)
+    let intermediatePlaces = [Place(name: "init.dp.ua", location: CLLocationCoordinate2DMake(48.460174, 35.043961), zoom: 17),
+                        Place(name: "Мост-Сити", location: CLLocationCoordinate2DMake(48.467262, 35.051122), zoom: 16),
+                        Place(name: "ДИИТ", location: CLLocationCoordinate2DMake(48.435387, 35.046489), zoom: 16)]
     
     //MARK: When view was just load
     override func viewDidLoad() {
@@ -65,7 +53,7 @@ class ViewController: UIViewController, UISearchBarDelegate {
         
     
         //MARK: Default position of a camera
-        let camera = GMSCameraPosition.camera(withLatitude: startPoint.location.latitude, longitude: startPoint.location.longitude, zoom: startPoint.zoom)
+        let camera = GMSCameraPosition.camera(withLatitude: startPlace.location.latitude, longitude: startPlace.location.longitude, zoom: startPlace.zoom)
         
         mapView = GMSMapView.map(withFrame: CGRect(origin: CGPoint(x: 0,y :0), size: CGSize(width: mainView.frame.width, height: mainView.frame.height)), camera: camera)
         
@@ -73,8 +61,8 @@ class ViewController: UIViewController, UISearchBarDelegate {
         
         mainView = mapView
         self.view.addSubview(mainView)
-        self.view.addSubview(startPointTextField)
-        self.view.addSubview(finishPointTextEdit)
+        self.view.addSubview(startPlaceTextEdit)
+        self.view.addSubview(finishPlaceTextEdit)
     }
     
     
@@ -82,7 +70,7 @@ class ViewController: UIViewController, UISearchBarDelegate {
 
     //MARK: next/previos buttons functions
     func next() {
-        if currentDestinationId < intermediatePoints.count - 1
+        if currentDestinationId < intermediatePlaces.count - 1
     {
             currentDestinationId += 1
             setCamera(id: currentDestinationId)
@@ -101,12 +89,12 @@ class ViewController: UIViewController, UISearchBarDelegate {
         CATransaction.begin()
         CATransaction.setValue(6, forKey: kCATransactionAnimationDuration)
         
-        mapView?.animate(to: GMSCameraPosition.camera(withTarget: intermediatePoints[id].location, zoom: intermediatePoints[id].zoom))
+        mapView?.animate(to: GMSCameraPosition.camera(withTarget: intermediatePlaces[id].location, zoom: intermediatePlaces[id].zoom))
         
         CATransaction.commit()
         
-        let marker = GMSMarker(position: intermediatePoints[id].location)
-        marker.title = intermediatePoints[id].name
+        let marker = GMSMarker(position: intermediatePlaces[id].location)
+        marker.title = intermediatePlaces[id].name
         marker.appearAnimation = kGMSMarkerAnimationPop
         marker.map = mapView
     }
@@ -120,8 +108,9 @@ extension ViewController: GMSAutocompleteViewControllerDelegate {
         print("Place name: \(place.name)")
         print("Place address: \(place.formattedAddress)")
         print("Place attributions: \(place.attributions)")
-        startPointTextField.text = place.name
-        finishPointTextEdit.text = place.formattedAddress
+        
+        startPlaceTextEdit.text = place.name
+        finishPlaceTextEdit.text = place.formattedAddress
         dismiss(animated: true, completion: nil)
     }
     
