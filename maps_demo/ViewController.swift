@@ -23,7 +23,7 @@ class Point {
     }
 }
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UISearchBarDelegate {
 
     @IBOutlet var mainView: UIView!
     
@@ -83,7 +83,7 @@ class ViewController: UIViewController {
     //MARK: next/previos buttons functions
     func next() {
         if currentDestinationId < intermediatePoints.count - 1
-        {
+    {
             currentDestinationId += 1
             setCamera(id: currentDestinationId)
         }
@@ -120,6 +120,8 @@ extension ViewController: GMSAutocompleteViewControllerDelegate {
         print("Place name: \(place.name)")
         print("Place address: \(place.formattedAddress)")
         print("Place attributions: \(place.attributions)")
+        startPointTextField.text = place.name
+        finishPointTextEdit.text = place.formattedAddress
         dismiss(animated: true, completion: nil)
     }
     
