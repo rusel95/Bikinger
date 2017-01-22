@@ -75,7 +75,7 @@ class ViewController: UIViewController {
         self.view.addSubview(mainView)
         self.view.addSubview(startPointTextField)
         self.view.addSubview(finishPointTextEdit)
-}
+    }
     
     
     
