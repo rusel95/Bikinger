@@ -24,6 +24,8 @@ class Place {
         
     }
     
+    
+    //Initializing for default Place
     init(name: String, location: CLLocationCoordinate2D, zoom: Float){
         self.name = name
         self.location = location
@@ -48,7 +50,8 @@ class Place {
                     
                     tempLocation.longitude = lon
                     tempLocation.latitude = lat
-                    print(self.location, self.address.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed))
+                    
+                    //print(dic, lon, lat , self.address.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!)
                 }
                 
             } catch {
