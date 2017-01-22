@@ -21,6 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //So this is my kinda identifier of ios app in GoogleMaps
         GMSServices.provideAPIKey("AIzaSyB_EZxn5ma7uGtxLPPnfkIbKIpazFxKKNQ")
+        GMSPlacesClient.provideAPIKey("AIzaSyDIOmHUrqmeKHwThvrExEtpDdWbZx2DkCc")
         
         return true
     }
