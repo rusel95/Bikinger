@@ -15,7 +15,6 @@ import GooglePlaces
 class ViewController: UIViewController, UISearchBarDelegate {
     
     
-    
     @IBOutlet var mainView: UIView!
     
     var mapView: GMSMapView?
@@ -38,15 +37,22 @@ class ViewController: UIViewController, UISearchBarDelegate {
     
     @IBOutlet weak var startPlaceTextEdit: UITextField!
     
-    @IBOutlet weak var finishPlaceTextEdit: UITextField!
-    
-    //MARK: search button
-    @IBAction func onLaunchClicked(_ sender: Any) {
+    @IBAction func startPlaceTextEditAction(_ sender: Any) {
         let acController = GMSAutocompleteViewController()
         acController.delegate = self
         present(acController, animated: true, completion: nil)
+        startPlaceTextEdit.text = intermediatePlaces[intermediatePlaces.endIndex - 1].address
     }
     
+    @IBOutlet weak var finishPlaceTextEdit: UITextField!
+    
+    @IBAction func finishPlaceTextEditAction(_ sender: Any) {
+        let acController = GMSAutocompleteViewController()
+        acController.delegate = self
+        present(acController, animated: true, completion: nil)
+        finishPlaceTextEdit.text = intermediatePlaces[intermediatePlaces.endIndex - 1].address
+    }
+        
     //MARK: When view was just load
     override func viewDidLoad() {
         super.viewDidLoad()
