@@ -22,6 +22,8 @@ class ViewController: UIViewController, UISearchBarDelegate {
     
     @IBOutlet weak var mapViewScreen: UIView!
     
+    @IBOutlet weak var googleView: UIView!
+    
     var currentPlaceId = 0
     //var myCamera = GoogleCamera()
 
@@ -54,15 +56,18 @@ class ViewController: UIViewController, UISearchBarDelegate {
         //MARK: Default position of a camera
         let camera = GMSCameraPosition.camera(withLatitude: defaultPlace.location.latitude, longitude: defaultPlace.location.longitude, zoom: defaultPlace.zoom)
         
-        mapView = GMSMapView.map(withFrame: CGRect(origin: CGPoint(x: 0,y :0), size: CGSize(width: mainView.frame.width, height: mainView.frame.height)), camera: camera)
+        mapView = GMSMapView.map(withFrame: CGRect(origin: CGPoint(x: 0,y :0), size: CGSize(width: googleView.frame.width, height: googleView.frame.height)), camera: camera)
         
         mapView?.mapType = kGMSTypeHybrid
         
-        mainView = mapView
+        googleView = mapView
         
-        self.view.addSubview(mainView)
-        self.view.addSubview(startPlaceTextEdit)
-        self.view.addSubview(finishPlaceTextEdit)
+        self.view.addSubview(googleView)
+        //mainView = googleView
+        
+        //self.view.addSubview(mainView)
+        //self.view.addSubview(startPlaceTextEdit)
+        //self.view.addSubview(finishPlaceTextEdit)
     }
     
     
@@ -85,36 +90,22 @@ class ViewController: UIViewController, UISearchBarDelegate {
         }
     }
     
-    
-    //MARK: I can set my camera in needed position using this function
-    /*private func setCamera(id: Int) {
-        CATransaction.begin()
-        CATransaction.setValue(6, forKey: kCATransactionAnimationDuration)
-        
-        mapView?.animate(to: GMSCameraPosition.camera(withTarget: intermediatePlaces[id].location, zoom: intermediatePlaces[id].zoom))
-        
-        CATransaction.commit()
-        
-        let marker = GMSMarker(position: intermediatePlaces[id].location)
-        marker.title = intermediatePlaces[id].name
-        marker.appearAnimation = kGMSMarkerAnimationPop
-        marker.map = mapView
-    }*/
-    
 }
 
 extension ViewController: GMSAutocompleteViewControllerDelegate {
     
     // Handle the user's selection.
     func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
-        print("Place name: \(place.name)")
+        /*print("Place name: \(place.name)")
         print("Place address: \(place.formattedAddress)")
-        print("Place attributions: \(place.attributions)")
+        print("Place attributions: \(place.attributions)")*/
         
-        let tempPoint = Place(name: place.name, address: place.formattedAddress!, zoom: 19)
+        let tempPoint = Place(name: place.name, address: place.formattedAddress!, zoom: 11)
+        //print(tempPoint.address, tempPoint.location)
+        
         intermediatePlaces.append(tempPoint)
-        intermediatePlaces.last?.setCamera(mapView: mapView!)
-      
+        intermediatePlaces[intermediatePlaces.endIndex - 1].setCamera(mapView: mapView!)
+        //print(intermediatePlaces[intermediatePlaces.endIndex - 1].address, intermediatePlaces[intermediatePlaces.endIndex - 1].location)
         
         dismiss(animated: true, completion: nil)
     }

@@ -35,8 +35,18 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F5i-Qb-ThR">
-                                <rect key="frame" x="164" y="528" width="46" height="30"/>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VuB-EN-cpo">
+                                <rect key="frame" x="0.0" y="64" width="375" height="431"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jdb-gv-Krg">
+                                <rect key="frame" x="256" y="520" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fbx-HO-eLE">
+                                <rect key="frame" x="56" y="520" width="46" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
                             </button>
@@ -72,20 +82,21 @@
                     </navigationItem>
                     <connections>
                         <outlet property="finishPlaceTextEdit" destination="K1d-4f-UeF" id="sZ6-G4-rhP"/>
+                        <outlet property="googleView" destination="VuB-EN-cpo" id="aAY-j2-gfd"/>
                         <outlet property="mainView" destination="9od-Ki-a0d" id="yvb-2S-v9N"/>
                         <outlet property="startPlaceTextEdit" destination="tv5-5P-Dzv" id="Gct-Uv-QVn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="999" y="-561"/>
+            <point key="canvasLocation" x="997.60000000000002" y="-561.76911544227892"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="io7-4v-8fm">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="zly-7x-Dmk" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="snj-mQ-JV8">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="snj-mQ-JV8">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

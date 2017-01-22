@@ -21,7 +21,7 @@ class Place {
         self.address = address
         self.zoom = zoom
         self.location = self.getLocation()
-        
+        print(self.address, self.location)
     }
     
     
@@ -51,7 +51,10 @@ class Place {
                     tempLocation.longitude = lon
                     tempLocation.latitude = lat
                     
-                    print(tempLocation, lat , self.address.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!)
+                    self.location.longitude = lon
+                    self.location.latitude = lat
+                    
+                    print(tempLocation, self.address.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!)
                 }
                 
             } catch {
@@ -67,12 +70,12 @@ class Place {
         CATransaction.begin()
         CATransaction.setValue(6, forKey: kCATransactionAnimationDuration)
         
-        mapView.animate(to: GMSCameraPosition.camera(withTarget: location, zoom: zoom))
+        mapView.animate(to: GMSCameraPosition.camera(withTarget: self.location, zoom: self.zoom))
         
         CATransaction.commit()
         
-        let marker = GMSMarker(position: location)
-        marker.title = name
+        let marker = GMSMarker(position: self.location)
+        marker.title = self.name
         marker.appearAnimation = kGMSMarkerAnimationPop
         marker.map = mapView
     }
