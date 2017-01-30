@@ -20,10 +20,13 @@ class Place {
         self.name = name
         self.address = address
         self.zoom = zoom
-        self.location = self.getLocation()
-        print(self.address, self.location)
+        self.getLocation(getCoordinate: { (coordinate) in
+            self.location = coordinate
+            print("I am here")
+            print(self.address, self.location)
+        })
+        
     }
-    
     
     //Initializing for default Place
     init(name: String, location: CLLocationCoordinate2D, zoom: Float){
@@ -32,7 +35,41 @@ class Place {
         self.zoom = zoom
     }
     
-    private func getLocation() -> CLLocationCoordinate2D {
+//    private func getLocation() -> CLLocationCoordinate2D {
+//        var tempLocation = CLLocationCoordinate2D()
+//        
+//        let urlpath = "https://maps.googleapis.com/maps/api/geocode/json?address=\(self.address)&sensor=false".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+//        
+//        let url = URL(string: urlpath!)
+//        
+//        let task = URLSession.shared.dataTask(with: url! as URL) { (data, response, error) -> Void in
+//            do {
+//                if data != nil{
+//                    let dic = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableLeaves) as! NSDictionary
+//                    
+//                    let lat =   (((((dic.value(forKey: "results") as! NSArray).object(at: 0) as! NSDictionary).value(forKey: "geometry") as! NSDictionary).value(forKey: "location") as! NSDictionary).value(forKey: "lat")) as! Double
+//                    
+//                    let lon =   (((((dic.value(forKey: "results") as! NSArray).object(at: 0) as! NSDictionary).value(forKey: "geometry") as! NSDictionary).value(forKey: "location") as! NSDictionary).value(forKey: "lng")) as! Double
+//                    
+//                    tempLocation.longitude = lon
+//                    tempLocation.latitude = lat
+//                    
+//                    self.location.longitude = lon
+//                    self.location.latitude = lat
+//                    
+//                    print(tempLocation, self.address.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!)
+//                }
+//                
+//            } catch {
+//                print("Error")
+//            }
+//        }
+//        
+//        task.resume()
+//        return tempLocation
+//    }
+    
+    private func getLocation(getCoordinate:@escaping (_ coordinate:(CLLocationCoordinate2D)) -> Void) -> Void {
         var tempLocation = CLLocationCoordinate2D()
         
         let urlpath = "https://maps.googleapis.com/maps/api/geocode/json?address=\(self.address)&sensor=false".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
@@ -60,10 +97,12 @@ class Place {
             } catch {
                 print("Error")
             }
+            
+            getCoordinate(tempLocation)
         }
         
         task.resume()
-        return tempLocation
+        //return tempLocation
     }
     
     func setCamera(mapView: GMSMapView) {
@@ -89,3 +128,5 @@ class Place {
                               Place(name: "Мост-Сити", location: CLLocationCoordinate2DMake(48.467262, 35.051122), zoom: 16),
                               Place(name: "ДИИТ", location: CLLocationCoordinate2DMake(48.435387, 35.046489), zoom: 16)]
     //var finishPlace = Place()
+
+
