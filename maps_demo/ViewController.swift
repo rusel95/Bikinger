@@ -102,22 +102,18 @@ extension ViewController: GMSAutocompleteViewControllerDelegate {
     
     // Handle the user's selection.
     func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
-        /*print("Place name: \(place.name)")
-        print("Place address: \(place.formattedAddress)")
-        print("Place attributions: \(place.attributions)")*/
         
         let tempPoint = Place(name: place.name, address: place.formattedAddress!, zoom: 11)
-        //print(tempPoint.address, tempPoint.location)
+        print("Temp Point Part")
+        print(tempPoint.address, tempPoint.location)
         
         intermediatePlaces.append(tempPoint)
         intermediatePlaces[intermediatePlaces.endIndex - 1].setCamera(mapView: mapView!)
-        //print(intermediatePlaces[intermediatePlaces.endIndex - 1].address, intermediatePlaces[intermediatePlaces.endIndex - 1].location)
         
         dismiss(animated: true, completion: nil)
     }
     
     func viewController(_ viewController: GMSAutocompleteViewController, didFailAutocompleteWithError error: Error) {
-        
         print("Error: \(error)")
         dismiss(animated: true, completion: nil)
     }
