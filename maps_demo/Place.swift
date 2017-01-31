@@ -9,6 +9,8 @@
 import Foundation
 import GoogleMaps
 
+var mapView: GMSMapView?
+
 class Place {
     
     var name = String()
@@ -16,14 +18,18 @@ class Place {
     var zoom: Float
     var location = CLLocationCoordinate2D()
     
+    //Initializing for intermediate Places
     init(name: String, address: String, zoom: Float){
         self.name = name
         self.address = address
         self.zoom = zoom
-        self.location = self.getLocation()
-        print(self.address, self.location)
+//        self.getLocation(getCoordinate: { (coordinate) in
+//            self.location = coordinate
+//            print("Init log")
+//            print(self.address, self.location)
+//        })
+        
     }
-    
     
     //Initializing for default Place
     init(name: String, location: CLLocationCoordinate2D, zoom: Float){
@@ -32,7 +38,7 @@ class Place {
         self.zoom = zoom
     }
     
-    private func getLocation() -> CLLocationCoordinate2D {
+    private func getLocation(getCoordinate:@escaping (_ coordinate:(CLLocationCoordinate2D)) -> Void) -> Void {
         var tempLocation = CLLocationCoordinate2D()
         
         let urlpath = "https://maps.googleapis.com/maps/api/geocode/json?address=\(self.address)&sensor=false".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
@@ -51,41 +57,34 @@ class Place {
                     tempLocation.longitude = lon
                     tempLocation.latitude = lat
                     
-                    self.location.longitude = lon
-                    self.location.latitude = lat
-                    
-                    print(tempLocation, self.address.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!)
+                    print("GetLocation log: ")
+                    print(self.address.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!, tempLocation)
                 }
                 
             } catch {
                 print("Error")
             }
+            
+            //escaping closure
+            getCoordinate(tempLocation)
         }
         
         task.resume()
-        return tempLocation
+        
+        //escaping closure
+        //getCoordinate(tempLocation)
     }
     
-    func setCamera(mapView: GMSMapView) {
-        CATransaction.begin()
-        CATransaction.setValue(6, forKey: kCATransactionAnimationDuration)
-        
-        mapView.animate(to: GMSCameraPosition.camera(withTarget: self.location, zoom: self.zoom))
-        
-        CATransaction.commit()
-        
-        let marker = GMSMarker(position: self.location)
-        marker.title = self.name
-        marker.appearAnimation = kGMSMarkerAnimationPop
-        marker.map = mapView
-    }
+   
     
 }
     //MARK: An array of Places
-    let defaultPlace = Place(name: "Babylon center", location: CLLocationCoordinate2DMake(48.486916, 35.063890), zoom: 14)
+    let defaultPlace = Place(name: "Babylon center", location: CLLocationCoordinate2DMake(48.486916, 35.063890), zoom: 12)
     
     //var startPlace = Place()
-    var intermediatePlaces = [Place(name: "init.dp.ua", location: CLLocationCoordinate2DMake(48.460174, 35.043961), zoom: 17),
-                              Place(name: "Мост-Сити", location: CLLocationCoordinate2DMake(48.467262, 35.051122), zoom: 16),
-                              Place(name: "ДИИТ", location: CLLocationCoordinate2DMake(48.435387, 35.046489), zoom: 16)]
+    var intermediatePlaces = [Place(name: "init.dp.ua", location: CLLocationCoordinate2DMake(48.460174, 35.043961), zoom: 12),
+                              Place(name: "Мост-Сити", location: CLLocationCoordinate2DMake(48.467262, 35.051122), zoom: 12),
+                              Place(name: "ДИИТ", location: CLLocationCoordinate2DMake(48.435387, 35.046489), zoom: 12)]
     //var finishPlace = Place()
+
+

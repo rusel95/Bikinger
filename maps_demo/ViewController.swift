@@ -10,28 +10,25 @@ import UIKit
 import GoogleMaps
 import GooglePlaces
 
-
+let Map = GMS()
 
 class ViewController: UIViewController, UISearchBarDelegate {
     
     
     @IBOutlet var mainView: UIView!
-    
-    var mapView: GMSMapView?
-    
+  
     @IBOutlet weak var mapViewScreen: UIView!
     
     @IBOutlet weak var googleView: UIView!
     
-    var currentPlaceId = 0
-    //var myCamera = GoogleCamera()
+    
 
     @IBAction func nextDestinationButton(_ sender: Any) {
-        next()
+        Map.nextPoint()
     }
     
     @IBAction func previousDestinationButton(_ sender: Any) {
-        previous()
+        Map.previousPoint()
     }
     
     
@@ -41,7 +38,6 @@ class ViewController: UIViewController, UISearchBarDelegate {
         let acController = GMSAutocompleteViewController()
         acController.delegate = self
         present(acController, animated: true, completion: nil)
-        startPlaceTextEdit.text = intermediatePlaces[intermediatePlaces.endIndex - 1].address
     }
     
     @IBOutlet weak var finishPlaceTextEdit: UITextField!
@@ -50,7 +46,6 @@ class ViewController: UIViewController, UISearchBarDelegate {
         let acController = GMSAutocompleteViewController()
         acController.delegate = self
         present(acController, animated: true, completion: nil)
-        finishPlaceTextEdit.text = intermediatePlaces[intermediatePlaces.endIndex - 1].address
     }
         
     //MARK: When view was just load
@@ -69,32 +64,12 @@ class ViewController: UIViewController, UISearchBarDelegate {
         googleView = mapView
         
         self.view.addSubview(googleView)
-        //mainView = googleView
-        
-        //self.view.addSubview(mainView)
-        //self.view.addSubview(startPlaceTextEdit)
-        //self.view.addSubview(finishPlaceTextEdit)
     }
     
     
     
     
-    //MARK: next/previos buttons functions
-    func next() {
-        if currentPlaceId < intermediatePlaces.count - 1
-        {
-            currentPlaceId += 1
-            //setCamera(id: currentPlaceId)
-            intermediatePlaces[currentPlaceId].setCamera(mapView: mapView!)
-        }
-    }
     
-    func previous() {
-        if currentPlaceId > 0 {
-            currentPlaceId -= 1
-            intermediatePlaces[currentPlaceId].setCamera(mapView: mapView!)
-        }
-    }
     
 }
 
@@ -102,22 +77,22 @@ extension ViewController: GMSAutocompleteViewControllerDelegate {
     
     // Handle the user's selection.
     func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
-        /*print("Place name: \(place.name)")
-        print("Place address: \(place.formattedAddress)")
-        print("Place attributions: \(place.attributions)")*/
         
         let tempPoint = Place(name: place.name, address: place.formattedAddress!, zoom: 11)
-        //print(tempPoint.address, tempPoint.location)
+        Map.getLocation(address: tempPoint.address, getCoordinate: { (coordinates) in
+            tempPoint.location = coordinates
+            intermediatePlaces.append(tempPoint)
+            Map.setCamera(place: intermediatePlaces[intermediatePlaces.endIndex - 1])
+            
+            self.startPlaceTextEdit.text = intermediatePlaces[intermediatePlaces.endIndex - 1].address
+        })
         
-        intermediatePlaces.append(tempPoint)
-        intermediatePlaces[intermediatePlaces.endIndex - 1].setCamera(mapView: mapView!)
-        //print(intermediatePlaces[intermediatePlaces.endIndex - 1].address, intermediatePlaces[intermediatePlaces.endIndex - 1].location)
+        self.dismiss(animated: true, completion: nil)
         
-        dismiss(animated: true, completion: nil)
+        //тут можно будет вставить то что будет в ячейке текст едита
     }
     
     func viewController(_ viewController: GMSAutocompleteViewController, didFailAutocompleteWithError error: Error) {
-        
         print("Error: \(error)")
         dismiss(animated: true, completion: nil)
     }
