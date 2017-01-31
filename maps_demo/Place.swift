@@ -16,15 +16,16 @@ class Place {
     var zoom: Float
     var location = CLLocationCoordinate2D()
     
+    //Initializing for intermediate Places
     init(name: String, address: String, zoom: Float){
         self.name = name
         self.address = address
         self.zoom = zoom
-        self.getLocation(getCoordinate: { (coordinate) in
-            self.location = coordinate
-            print("Init part")
-            print(self.address, self.location)
-        })
+//        self.getLocation(getCoordinate: { (coordinate) in
+//            self.location = coordinate
+//            print("Init log")
+//            print(self.address, self.location)
+//        })
         
     }
     
@@ -54,7 +55,7 @@ class Place {
                     tempLocation.longitude = lon
                     tempLocation.latitude = lat
                     
-                    print("GetLocation part: ")
+                    print("GetLocation log: ")
                     print(self.address.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!, tempLocation)
                 }
                 
@@ -62,22 +63,28 @@ class Place {
                 print("Error")
             }
             
+            //escaping closure
             getCoordinate(tempLocation)
         }
         
         task.resume()
+        
+        //escaping closure
+        //getCoordinate(tempLocation)
     }
     
     func setCamera(mapView: GMSMapView) {
-        CATransaction.begin()
-        CATransaction.setValue(1, forKey: kCATransactionAnimationDuration)
-        mapView.animate(to: GMSCameraPosition.camera(withTarget: self.location, zoom: self.zoom))
-        CATransaction.commit()
-        
-        let marker = GMSMarker(position: self.location)
-        marker.title = self.name
-        marker.appearAnimation = kGMSMarkerAnimationPop
-        marker.map = mapView
+        DispatchQueue.main.async {
+            CATransaction.begin()
+            CATransaction.setValue(1, forKey: kCATransactionAnimationDuration)
+            mapView.animate(to: GMSCameraPosition.camera(withTarget: self.location, zoom: self.zoom))
+            CATransaction.commit()
+            
+            let marker = GMSMarker(position: self.location)
+            marker.title = self.name
+            marker.appearAnimation = kGMSMarkerAnimationPop
+            marker.map = mapView
+        }
     }
     
 }

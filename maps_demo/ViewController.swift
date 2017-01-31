@@ -81,10 +81,8 @@ class ViewController: UIViewController, UISearchBarDelegate {
     
     //MARK: next/previos buttons functions
     func next() {
-        if currentPlaceId < intermediatePlaces.count - 1
-        {
+        if currentPlaceId < intermediatePlaces.count - 1 {
             currentPlaceId += 1
-            //setCamera(id: currentPlaceId)
             intermediatePlaces[currentPlaceId].setCamera(mapView: mapView!)
         }
     }
@@ -104,13 +102,17 @@ extension ViewController: GMSAutocompleteViewControllerDelegate {
     func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
         
         let tempPoint = Place(name: place.name, address: place.formattedAddress!, zoom: 11)
-        print("Temp Point Part")
-        print(tempPoint.address, tempPoint.location)
         
-        intermediatePlaces.append(tempPoint)
-        intermediatePlaces[intermediatePlaces.endIndex - 1].setCamera(mapView: mapView!)
-        
-        dismiss(animated: true, completion: nil)
+        self.getLocation(address: tempPoint.address) { (coordinate) in
+            tempPoint.location = coordinate
+            print("Init log")
+            print(tempPoint.address, tempPoint.location, tempPoint.location )
+            
+            intermediatePlaces.append(tempPoint)
+            intermediatePlaces[intermediatePlaces.endIndex - 1].setCamera(mapView: self.mapView!)
+            
+            self.dismiss(animated: true, completion: nil)
+        }
     }
     
     func viewController(_ viewController: GMSAutocompleteViewController, didFailAutocompleteWithError error: Error) {
@@ -123,5 +125,43 @@ extension ViewController: GMSAutocompleteViewControllerDelegate {
         print("Autocomplete was cancelled.")
         dismiss(animated: true, completion: nil)
     }
+    
+    private func getLocation(address: String, getCoordinate:@escaping (_ coordinate:(CLLocationCoordinate2D)) -> Void) -> Void {
+        var tempLocation = CLLocationCoordinate2D()
+        
+        let urlpath = "https://maps.googleapis.com/maps/api/geocode/json?address=\(address)&sensor=false".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+        
+        let url = URL(string: urlpath!)
+        
+        let task = URLSession.shared.dataTask(with: url! as URL) { (data, response, error) -> Void in
+            do {
+                if data != nil{
+                    let dic = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableLeaves) as! NSDictionary
+                    
+                    let lat =   (((((dic.value(forKey: "results") as! NSArray).object(at: 0) as! NSDictionary).value(forKey: "geometry") as! NSDictionary).value(forKey: "location") as! NSDictionary).value(forKey: "lat")) as! Double
+                    
+                    let lon =   (((((dic.value(forKey: "results") as! NSArray).object(at: 0) as! NSDictionary).value(forKey: "geometry") as! NSDictionary).value(forKey: "location") as! NSDictionary).value(forKey: "lng")) as! Double
+                    
+                    tempLocation.longitude = lon
+                    tempLocation.latitude = lat
+                    
+                    print("GetLocation log: ")
+                    print(address.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!, tempLocation)
+                }
+                
+            } catch {
+                print("Error")
+            }
+            
+            //escaping closure
+            getCoordinate(tempLocation)
+        }
+        
+        task.resume()
+        
+        //escaping closure
+        //getCoordinate(tempLocation)
+    }
+
 }
 
