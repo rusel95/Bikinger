@@ -9,6 +9,8 @@
 import Foundation
 import GoogleMaps
 
+var mapView: GMSMapView?
+
 class Place {
     
     var name = String()
@@ -73,19 +75,7 @@ class Place {
         //getCoordinate(tempLocation)
     }
     
-    func setCamera(mapView: GMSMapView) {
-        DispatchQueue.main.async {
-            CATransaction.begin()
-            CATransaction.setValue(1, forKey: kCATransactionAnimationDuration)
-            mapView.animate(to: GMSCameraPosition.camera(withTarget: self.location, zoom: self.zoom))
-            CATransaction.commit()
-            
-            let marker = GMSMarker(position: self.location)
-            marker.title = self.name
-            marker.appearAnimation = kGMSMarkerAnimationPop
-            marker.map = mapView
-        }
-    }
+   
     
 }
     //MARK: An array of Places

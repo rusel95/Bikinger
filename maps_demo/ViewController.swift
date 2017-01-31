@@ -10,28 +10,25 @@ import UIKit
 import GoogleMaps
 import GooglePlaces
 
-
+let Map = GMS()
 
 class ViewController: UIViewController, UISearchBarDelegate {
     
     
     @IBOutlet var mainView: UIView!
-    
-    var mapView: GMSMapView?
-    
+  
     @IBOutlet weak var mapViewScreen: UIView!
     
     @IBOutlet weak var googleView: UIView!
     
-    var currentPlaceId = 0
-    //var myCamera = GoogleCamera()
+    
 
     @IBAction func nextDestinationButton(_ sender: Any) {
-        next()
+        Map.nextPoint()
     }
     
     @IBAction func previousDestinationButton(_ sender: Any) {
-        previous()
+        Map.previousPoint()
     }
     
     
@@ -69,30 +66,12 @@ class ViewController: UIViewController, UISearchBarDelegate {
         googleView = mapView
         
         self.view.addSubview(googleView)
-        //mainView = googleView
-        
-        //self.view.addSubview(mainView)
-        //self.view.addSubview(startPlaceTextEdit)
-        //self.view.addSubview(finishPlaceTextEdit)
     }
     
     
     
     
-    //MARK: next/previos buttons functions
-    func next() {
-        if currentPlaceId < intermediatePlaces.count - 1 {
-            currentPlaceId += 1
-            intermediatePlaces[currentPlaceId].setCamera(mapView: mapView!)
-        }
-    }
     
-    func previous() {
-        if currentPlaceId > 0 {
-            currentPlaceId -= 1
-            intermediatePlaces[currentPlaceId].setCamera(mapView: mapView!)
-        }
-    }
     
 }
 
@@ -102,17 +81,13 @@ extension ViewController: GMSAutocompleteViewControllerDelegate {
     func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
         
         let tempPoint = Place(name: place.name, address: place.formattedAddress!, zoom: 11)
+        tempPoint.location = Map.getLocation(address: tempPoint.address)
+        intermediatePlaces.append(tempPoint)
+        Map.setCamera(place: intermediatePlaces[intermediatePlaces.endIndex - 1])
         
-        self.getLocation(address: tempPoint.address) { (coordinate) in
-            tempPoint.location = coordinate
-            print("Init log")
-            print(tempPoint.address, tempPoint.location, tempPoint.location )
-            
-            intermediatePlaces.append(tempPoint)
-            intermediatePlaces[intermediatePlaces.endIndex - 1].setCamera(mapView: self.mapView!)
-            
-            self.dismiss(animated: true, completion: nil)
-        }
+        self.dismiss(animated: true, completion: nil)
+        
+        //тут можно будет вставить то что будет в ячейке текст едита
     }
     
     func viewController(_ viewController: GMSAutocompleteViewController, didFailAutocompleteWithError error: Error) {
@@ -125,43 +100,5 @@ extension ViewController: GMSAutocompleteViewControllerDelegate {
         print("Autocomplete was cancelled.")
         dismiss(animated: true, completion: nil)
     }
-    
-    private func getLocation(address: String, getCoordinate:@escaping (_ coordinate:(CLLocationCoordinate2D)) -> Void) -> Void {
-        var tempLocation = CLLocationCoordinate2D()
-        
-        let urlpath = "https://maps.googleapis.com/maps/api/geocode/json?address=\(address)&sensor=false".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
-        
-        let url = URL(string: urlpath!)
-        
-        let task = URLSession.shared.dataTask(with: url! as URL) { (data, response, error) -> Void in
-            do {
-                if data != nil{
-                    let dic = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableLeaves) as! NSDictionary
-                    
-                    let lat =   (((((dic.value(forKey: "results") as! NSArray).object(at: 0) as! NSDictionary).value(forKey: "geometry") as! NSDictionary).value(forKey: "location") as! NSDictionary).value(forKey: "lat")) as! Double
-                    
-                    let lon =   (((((dic.value(forKey: "results") as! NSArray).object(at: 0) as! NSDictionary).value(forKey: "geometry") as! NSDictionary).value(forKey: "location") as! NSDictionary).value(forKey: "lng")) as! Double
-                    
-                    tempLocation.longitude = lon
-                    tempLocation.latitude = lat
-                    
-                    print("GetLocation log: ")
-                    print(address.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!, tempLocation)
-                }
-                
-            } catch {
-                print("Error")
-            }
-            
-            //escaping closure
-            getCoordinate(tempLocation)
-        }
-        
-        task.resume()
-        
-        //escaping closure
-        //getCoordinate(tempLocation)
-    }
-
 }
 
