@@ -43,13 +43,7 @@ class GMS {
         }
     }
     
-    func getLocation(address: String) { coordinate in
-        tempPoint.location = coordinate
-        print("Init log")
-        print(tempPoint.address, tempPoint.location, tempPoint.location )
-    }
-    
-    private func getLocation(address: String, getCoordinate:@escaping (_ coordinate:(CLLocationCoordinate2D)) -> Void) -> CLLocationCoordinate2D {
+    func getLocation(address: String, getCoordinate:@escaping (_ coordinate: CLLocationCoordinate2D ) -> Void) -> Void {
         var tempLocation = CLLocationCoordinate2D()
         
         let urlpath = "https://maps.googleapis.com/maps/api/geocode/json?address=\(address)&sensor=false".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
@@ -80,6 +74,11 @@ class GMS {
         }
         
         task.resume()
+       
+        //escaping closure
+        //getCoordinate(tempLocation)
     }
+    
+    
     
 }

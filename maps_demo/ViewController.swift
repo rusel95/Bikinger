@@ -38,7 +38,6 @@ class ViewController: UIViewController, UISearchBarDelegate {
         let acController = GMSAutocompleteViewController()
         acController.delegate = self
         present(acController, animated: true, completion: nil)
-        startPlaceTextEdit.text = intermediatePlaces[intermediatePlaces.endIndex - 1].address
     }
     
     @IBOutlet weak var finishPlaceTextEdit: UITextField!
@@ -47,7 +46,6 @@ class ViewController: UIViewController, UISearchBarDelegate {
         let acController = GMSAutocompleteViewController()
         acController.delegate = self
         present(acController, animated: true, completion: nil)
-        finishPlaceTextEdit.text = intermediatePlaces[intermediatePlaces.endIndex - 1].address
     }
         
     //MARK: When view was just load
@@ -81,9 +79,13 @@ extension ViewController: GMSAutocompleteViewControllerDelegate {
     func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
         
         let tempPoint = Place(name: place.name, address: place.formattedAddress!, zoom: 11)
-        tempPoint.location = Map.getLocation(address: tempPoint.address)
-        intermediatePlaces.append(tempPoint)
-        Map.setCamera(place: intermediatePlaces[intermediatePlaces.endIndex - 1])
+        Map.getLocation(address: tempPoint.address, getCoordinate: { (coordinates) in
+            tempPoint.location = coordinates
+            intermediatePlaces.append(tempPoint)
+            Map.setCamera(place: intermediatePlaces[intermediatePlaces.endIndex - 1])
+            
+            self.startPlaceTextEdit.text = intermediatePlaces[intermediatePlaces.endIndex - 1].address
+        })
         
         self.dismiss(animated: true, completion: nil)
         
