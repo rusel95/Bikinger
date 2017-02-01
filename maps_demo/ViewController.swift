@@ -11,9 +11,9 @@ import GoogleMaps
 import GooglePlaces
 
 let Map = GMS()
+var myPlaces = Places()
 
 class ViewController: UIViewController, UISearchBarDelegate {
-    
     
     @IBOutlet var mainView: UIView!
   
@@ -23,14 +23,18 @@ class ViewController: UIViewController, UISearchBarDelegate {
     
     
     @IBAction func addPointButton(_ sender: Any) {
+        let acController = GMSAutocompleteViewController()
+        acController.delegate = self
+        present(acController, animated: true, completion: nil)
+        myPlaces.intermediatePlaces.append(myPlaces.tempPlace)
     }
 
     @IBAction func nextDestinationButton(_ sender: Any) {
-        //Map.nextPoint()
+        Map.nextPoint()
     }
     
     @IBAction func previousDestinationButton(_ sender: Any) {
-        //Map.previousPoint()
+        Map.previousPoint()
     }
     
     
@@ -55,8 +59,8 @@ class ViewController: UIViewController, UISearchBarDelegate {
         super.viewDidLoad()
         
         //MARK: Default position of a camera
-        Map.setViewPropertys(googleView)
-        Map.setCamera(place: defaultPlace)
+        Map.setViewSize(googleView)
+        Map.setCamera(place: myPlaces.defaultPlace)
         
         googleView = Map.mapView
         
@@ -70,13 +74,10 @@ extension ViewController: GMSAutocompleteViewControllerDelegate {
     // Handle the user's selection.
     func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
         
-        let tempPoint = Place(name: place.name, address: place.formattedAddress!, zoom: 11)
-        Map.getLocation(address: tempPoint.address, getCoordinate: { (coordinates) in
-            tempPoint.location = coordinates
-            intermediatePlaces.append(tempPoint)
-            Map.setCamera(place: intermediatePlaces[intermediatePlaces.endIndex - 1])
-            
-            self.startPlaceTextEdit.text = intermediatePlaces[intermediatePlaces.endIndex - 1].address
+        myPlaces.tempPlace = Place(name: place.name, address: place.formattedAddress!, zoom: 11)
+        Map.getLocation(address: myPlaces.tempPlace.address, getCoordinate: { (coordinates) in
+            myPlaces.tempPlace.location = coordinates
+            Map.setCamera(place: myPlaces.tempPlace)
         })
         
         self.dismiss(animated: true, completion: nil)

@@ -9,6 +9,20 @@
 import Foundation
 import GoogleMaps
 
+//MARK: An array of Places
+class Places {
+    var defaultPlace = Place(name: "Babylon center", location: CLLocationCoordinate2DMake(48.486916, 35.063890), zoom: 12)
+    
+    var tempPlace = Place()
+    
+    var startPlace = Place()
+    var finishPlace = Place()
+    
+    var intermediatePlaces = [Place(name: "init.dp.ua", location: CLLocationCoordinate2DMake(48.460174, 35.043961), zoom: 12),
+                              Place(name: "Мост-Сити", location: CLLocationCoordinate2DMake(48.467262, 35.051122), zoom: 12),
+                              Place(name: "ДИИТ", location: CLLocationCoordinate2DMake(48.435387, 35.046489), zoom: 12)]
+    
+}
 
 class Place {
     
@@ -17,16 +31,23 @@ class Place {
     var zoom: Float
     var location = CLLocationCoordinate2D()
     
+    init() {
+        name = ""
+        address = ""
+        zoom = 1
+        location = CLLocationCoordinate2DMake(0, 0)
+    }
+    
     //Initializing for intermediate Places
     init(name: String, address: String, zoom: Float){
         self.name = name
         self.address = address
         self.zoom = zoom
-//        self.getLocation(getCoordinate: { (coordinate) in
-//            self.location = coordinate
-//            print("Init log")
-//            print(self.address, self.location)
-//        })
+        //        self.getLocation(getCoordinate: { (coordinate) in
+        //            self.location = coordinate
+        //            print("Init log")
+        //            print(self.address, self.location)
+        //        })
         
     }
     
@@ -74,16 +95,6 @@ class Place {
         //getCoordinate(tempLocation)
     }
     
-   
-    
 }
-    //MARK: An array of Places
-    let defaultPlace = Place(name: "Babylon center", location: CLLocationCoordinate2DMake(48.486916, 35.063890), zoom: 12)
-    
-    //var startPlace = Place()
-    var intermediatePlaces = [Place(name: "init.dp.ua", location: CLLocationCoordinate2DMake(48.460174, 35.043961), zoom: 12),
-                              Place(name: "Мост-Сити", location: CLLocationCoordinate2DMake(48.467262, 35.051122), zoom: 12),
-                              Place(name: "ДИИТ", location: CLLocationCoordinate2DMake(48.435387, 35.046489), zoom: 12)]
-    //var finishPlace = Place()
 
 
