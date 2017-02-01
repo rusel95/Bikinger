@@ -16,19 +16,22 @@ var myPlaces = Places()
 class ViewController: UIViewController, UISearchBarDelegate {
     
     @IBOutlet var mainView: UIView!
-  
+    
     @IBOutlet weak var mapViewScreen: UIView!
     
     @IBOutlet weak var googleView: UIView!
     
     
     @IBAction func addPointButton(_ sender: Any) {
-        let acController = GMSAutocompleteViewController()
-        acController.delegate = self
-        present(acController, animated: true, completion: nil)
-        myPlaces.intermediatePlaces.append(myPlaces.tempPlace)
+        if myPlaces.ifAddNewPlacePossible(self) {
+            let acController = GMSAutocompleteViewController()
+            acController.delegate = self
+            present(acController, animated: true, completion: nil)
+            
+            myPlaces.intermediatePlaces.append(myPlaces.tempPlace)
+        }
     }
-
+    
     @IBAction func nextDestinationButton(_ sender: Any) {
         Map.nextPoint()
     }
@@ -41,19 +44,21 @@ class ViewController: UIViewController, UISearchBarDelegate {
     @IBOutlet weak var startPlaceTextEdit: UITextField!
     
     @IBAction func startPlaceTextEditAction(_ sender: Any) {
-        let acController = GMSAutocompleteViewController()
-        acController.delegate = self
-        present(acController, animated: true, completion: nil)
+        
+        autoComplete()
+        myPlaces.startPlace = myPlaces.tempPlace
+        startPlaceTextEdit.text = myPlaces.startPlace.address
     }
     
     @IBOutlet weak var finishPlaceTextEdit: UITextField!
     
     @IBAction func finishPlaceTextEditAction(_ sender: Any) {
-        let acController = GMSAutocompleteViewController()
-        acController.delegate = self
-        present(acController, animated: true, completion: nil)
-    }
         
+        autoComplete()
+        myPlaces.finishPlace = myPlaces.tempPlace
+        finishPlaceTextEdit.text = myPlaces.tempPlace.address
+    }
+    
     //MARK: When view was just load
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,6 +72,11 @@ class ViewController: UIViewController, UISearchBarDelegate {
         self.view.addSubview(googleView)
     }
     
+    private func autoComplete() {
+        let acController = GMSAutocompleteViewController()
+        acController.delegate = self
+        present(acController, animated: true, completion: nil)
+    }
 }
 
 extension ViewController: GMSAutocompleteViewControllerDelegate {

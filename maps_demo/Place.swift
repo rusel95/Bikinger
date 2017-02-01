@@ -22,6 +22,28 @@ class Places {
                               Place(name: "Мост-Сити", location: CLLocationCoordinate2DMake(48.467262, 35.051122), zoom: 12),
                               Place(name: "ДИИТ", location: CLLocationCoordinate2DMake(48.435387, 35.046489), zoom: 12)]
     
+    func ifAddNewPlacePossible(_ viewController: UIViewController) -> Bool {
+        if intermediatePlaces.count < 5 {
+            return true
+        } else {
+            //need to add attension
+            print("You can`t add more points")
+            
+            createAlert(viewController, "Warning", "You can`t add more than 5 places! Delete some place to add a new one.")
+            
+            return false
+        }
+    }
+    
+    private func createAlert(_ viewController: UIViewController, _ title: String, _ message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
+        
+        alert.addAction(UIAlertAction(title: "Продолжить", style: UIAlertActionStyle.default , handler: { (action) in
+            alert.dismiss(animated: true, completion: nil)
+        }))
+        
+        viewController.present(alert, animated: true, completion: nil)
+    }
 }
 
 class Place {
@@ -51,7 +73,7 @@ class Place {
         
     }
     
-    //Initializing for default Place
+    //Initializing for default Places in storage
     init(name: String, location: CLLocationCoordinate2D, zoom: Float){
         self.name = name
         self.location = location

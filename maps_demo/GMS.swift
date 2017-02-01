@@ -88,6 +88,10 @@ class GMS {
         //getCoordinate(tempLocation)
     }
     
-    
+//    func autoComplete(_ view: GMSAutocompleteViewControllerDelegate){
+//        let acController = GMSAutocompleteViewController()
+//        acController.delegate = view
+//        present(acController, animated: true, completion: nil)
+//    }
     
 }
