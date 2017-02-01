@@ -11,58 +11,72 @@ import GoogleMaps
 import GooglePlaces
 
 let Map = GMS()
+var myPlaces = Places()
 
 class ViewController: UIViewController, UISearchBarDelegate {
     
-    
     @IBOutlet var mainView: UIView!
-  
+    
     @IBOutlet weak var mapViewScreen: UIView!
     
     @IBOutlet weak var googleView: UIView!
     
     
     @IBAction func addPointButton(_ sender: Any) {
+        if myPlaces.ifAddNewPlacePossible(self) {
+            let acController = GMSAutocompleteViewController()
+            acController.delegate = self
+            present(acController, animated: true, completion: nil)
+            
+            myPlaces.intermediatePlaces.append(myPlaces.tempPlace)
+        }
     }
-
+    
     @IBAction func nextDestinationButton(_ sender: Any) {
-        //Map.nextPoint()
+        Map.nextPoint()
     }
     
     @IBAction func previousDestinationButton(_ sender: Any) {
-        //Map.previousPoint()
+        Map.previousPoint()
     }
     
     
     @IBOutlet weak var startPlaceTextEdit: UITextField!
     
     @IBAction func startPlaceTextEditAction(_ sender: Any) {
-        let acController = GMSAutocompleteViewController()
-        acController.delegate = self
-        present(acController, animated: true, completion: nil)
+        
+        autoComplete()
+        myPlaces.startPlace = myPlaces.tempPlace
+        startPlaceTextEdit.text = myPlaces.startPlace.address
     }
     
     @IBOutlet weak var finishPlaceTextEdit: UITextField!
     
     @IBAction func finishPlaceTextEditAction(_ sender: Any) {
-        let acController = GMSAutocompleteViewController()
-        acController.delegate = self
-        present(acController, animated: true, completion: nil)
-    }
         
+        autoComplete()
+        myPlaces.finishPlace = myPlaces.tempPlace
+        finishPlaceTextEdit.text = myPlaces.tempPlace.address
+    }
+    
     //MARK: When view was just load
     override func viewDidLoad() {
         super.viewDidLoad()
         
         //MARK: Default position of a camera
-        Map.setViewPropertys(googleView)
-        Map.setCamera(place: defaultPlace)
+        Map.setViewSize(googleView)
+        Map.setCamera(place: myPlaces.defaultPlace)
         
         googleView = Map.mapView
         
         self.view.addSubview(googleView)
     }
     
+    private func autoComplete() {
+        let acController = GMSAutocompleteViewController()
+        acController.delegate = self
+        present(acController, animated: true, completion: nil)
+    }
 }
 
 extension ViewController: GMSAutocompleteViewControllerDelegate {
@@ -70,13 +84,10 @@ extension ViewController: GMSAutocompleteViewControllerDelegate {
     // Handle the user's selection.
     func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
         
-        let tempPoint = Place(name: place.name, address: place.formattedAddress!, zoom: 11)
-        Map.getLocation(address: tempPoint.address, getCoordinate: { (coordinates) in
-            tempPoint.location = coordinates
-            intermediatePlaces.append(tempPoint)
-            Map.setCamera(place: intermediatePlaces[intermediatePlaces.endIndex - 1])
-            
-            self.startPlaceTextEdit.text = intermediatePlaces[intermediatePlaces.endIndex - 1].address
+        myPlaces.tempPlace = Place(name: place.name, address: place.formattedAddress!, zoom: 11)
+        Map.getLocation(address: myPlaces.tempPlace.address, getCoordinate: { (coordinates) in
+            myPlaces.tempPlace.location = coordinates
+            Map.setCamera(place: myPlaces.tempPlace)
         })
         
         self.dismiss(animated: true, completion: nil)

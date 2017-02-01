@@ -16,25 +16,25 @@ class GMS {
     
     var mapView: GMSMapView?
     
-    let camera = GMSCameraPosition.camera(withLatitude: defaultPlace.location.latitude, longitude: defaultPlace.location.longitude, zoom: defaultPlace.zoom)
+    let camera = GMSCameraPosition.camera(withLatitude: myPlaces.defaultPlace.location.latitude, longitude: myPlaces.defaultPlace.location.longitude, zoom: myPlaces.defaultPlace.zoom)
     
-    func setViewPropertys(_ parentView: UIView){
+    func setViewSize(_ parentView: UIView){
         mapView = GMSMapView.map(withFrame: CGRect(origin: CGPoint(x: 0,y :0), size: CGSize(width: parentView.frame.width, height: parentView.frame.height)), camera: camera)
         
         mapView?.mapType = kGMSTypeHybrid
     }
     
     func nextPoint() {
-        if currentPlaceId < intermediatePlaces.count - 1 {
+        if currentPlaceId < myPlaces.intermediatePlaces.count - 1 {
             currentPlaceId += 1
-            setCamera(place: intermediatePlaces[currentPlaceId])
+            setCamera(place: myPlaces.intermediatePlaces[currentPlaceId])
         }
     }
     
     func previousPoint() {
         if currentPlaceId > 0 {
             currentPlaceId -= 1
-            setCamera(place: intermediatePlaces[currentPlaceId])
+            setCamera(place: myPlaces.intermediatePlaces[currentPlaceId])
         }
     }
     
@@ -88,6 +88,10 @@ class GMS {
         //getCoordinate(tempLocation)
     }
     
-    
+//    func autoComplete(_ view: GMSAutocompleteViewControllerDelegate){
+//        let acController = GMSAutocompleteViewController()
+//        acController.delegate = view
+//        present(acController, animated: true, completion: nil)
+//    }
     
 }
