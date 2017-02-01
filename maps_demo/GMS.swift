@@ -14,7 +14,16 @@ class GMS {
     
     private var currentPlaceId = 0
     
-    //MARK: next/previos buttons functions
+    var mapView: GMSMapView?
+    
+    let camera = GMSCameraPosition.camera(withLatitude: defaultPlace.location.latitude, longitude: defaultPlace.location.longitude, zoom: defaultPlace.zoom)
+    
+    func setViewPropertys(_ parentView: UIView){
+        mapView = GMSMapView.map(withFrame: CGRect(origin: CGPoint(x: 0,y :0), size: CGSize(width: parentView.frame.width, height: parentView.frame.height)), camera: camera)
+        
+        mapView?.mapType = kGMSTypeHybrid
+    }
+    
     func nextPoint() {
         if currentPlaceId < intermediatePlaces.count - 1 {
             currentPlaceId += 1
@@ -33,13 +42,13 @@ class GMS {
         DispatchQueue.main.async {
             CATransaction.begin()
             CATransaction.setValue(1, forKey: kCATransactionAnimationDuration)
-            mapView?.animate(to: GMSCameraPosition.camera(withTarget: place.location, zoom: place.zoom))
+            self.mapView?.animate(to: GMSCameraPosition.camera(withTarget: place.location, zoom: place.zoom))
             CATransaction.commit()
             
             let marker = GMSMarker(position: place.location)
             marker.title = place.name
             marker.appearAnimation = kGMSMarkerAnimationPop
-            marker.map = mapView
+            marker.map = self.mapView
         }
     }
     
@@ -74,7 +83,7 @@ class GMS {
         }
         
         task.resume()
-       
+        
         //escaping closure
         //getCoordinate(tempLocation)
     }

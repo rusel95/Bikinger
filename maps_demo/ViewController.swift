@@ -22,13 +22,15 @@ class ViewController: UIViewController, UISearchBarDelegate {
     @IBOutlet weak var googleView: UIView!
     
     
+    @IBAction func addPointButton(_ sender: Any) {
+    }
 
     @IBAction func nextDestinationButton(_ sender: Any) {
-        Map.nextPoint()
+        //Map.nextPoint()
     }
     
     @IBAction func previousDestinationButton(_ sender: Any) {
-        Map.previousPoint()
+        //Map.previousPoint()
     }
     
     
@@ -51,25 +53,15 @@ class ViewController: UIViewController, UISearchBarDelegate {
     //MARK: When view was just load
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        
         
         //MARK: Default position of a camera
-        let camera = GMSCameraPosition.camera(withLatitude: defaultPlace.location.latitude, longitude: defaultPlace.location.longitude, zoom: defaultPlace.zoom)
+        Map.setViewPropertys(googleView)
+        Map.setCamera(place: defaultPlace)
         
-        mapView = GMSMapView.map(withFrame: CGRect(origin: CGPoint(x: 0,y :0), size: CGSize(width: googleView.frame.width, height: googleView.frame.height)), camera: camera)
-        
-        mapView?.mapType = kGMSTypeHybrid
-        
-        googleView = mapView
+        googleView = Map.mapView
         
         self.view.addSubview(googleView)
     }
-    
-    
-    
-    
-    
     
 }
 

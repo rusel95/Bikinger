@@ -9,7 +9,6 @@
 import Foundation
 import GoogleMaps
 
-var mapView: GMSMapView?
 
 class Place {
     
