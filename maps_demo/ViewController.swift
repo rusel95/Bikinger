@@ -21,6 +21,7 @@ class ViewController: UIViewController, UISearchBarDelegate {
     
     @IBOutlet weak var googleView: UIView!
     
+    @IBOutlet weak var addPointButton: UIButton!
     
     @IBAction func addPointButton(_ sender: Any) {
         if myPlaces.ifAddNewPlacePossible(self) {
@@ -70,6 +71,9 @@ class ViewController: UIViewController, UISearchBarDelegate {
         googleView = Map.mapView
         
         self.view.addSubview(googleView)
+        self.view.addSubview(startPlaceTextEdit)
+        self.view.addSubview(addPointButton)
+        self.view.addSubview(finishPlaceTextEdit)
     }
     
     private func autoComplete() {
