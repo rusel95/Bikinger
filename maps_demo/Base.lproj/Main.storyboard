@@ -23,7 +23,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="адрес прибытия" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="K1d-4f-UeF">
-                                <rect key="frame" x="48" y="524" width="224" height="34"/>
+                                <rect key="frame" x="48" y="528" width="224" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -32,7 +32,7 @@
                                 </connections>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="адрес отправки" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tv5-5P-Dzv">
-                                <rect key="frame" x="48" y="480" width="224" height="34"/>
+                                <rect key="frame" x="48" y="448" width="224" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -45,10 +45,11 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jcw-bW-h1c">
-                                <rect key="frame" x="48" y="432" width="224" height="34"/>
-                                <color key="backgroundColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <state key="normal" title="Add Point">
-                                    <color key="titleColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <rect key="frame" x="48" y="488" width="224" height="30"/>
+                                <color key="backgroundColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <state key="normal" title="Добавить Промежуточную Точку">
+                                    <color key="titleColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="addPointButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="tNB-Dq-zCz"/>
@@ -57,21 +58,21 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="jcw-bW-h1c" firstAttribute="width" secondItem="tv5-5P-Dzv" secondAttribute="width" id="1dc-5M-fXu"/>
+                            <constraint firstItem="tv5-5P-Dzv" firstAttribute="height" secondItem="jcw-bW-h1c" secondAttribute="height" id="0kk-KE-rfS"/>
                             <constraint firstItem="VuB-EN-cpo" firstAttribute="top" secondItem="Dd7-VR-JrA" secondAttribute="bottom" id="4Tk-Lh-C0l"/>
+                            <constraint firstItem="jcw-bW-h1c" firstAttribute="height" secondItem="K1d-4f-UeF" secondAttribute="height" id="4x9-zk-U6Y"/>
                             <constraint firstItem="VuB-EN-cpo" firstAttribute="height" secondItem="9od-Ki-a0d" secondAttribute="height" multiplier="0.6" id="BId-Et-XcX"/>
                             <constraint firstItem="VuB-EN-cpo" firstAttribute="width" secondItem="9od-Ki-a0d" secondAttribute="width" id="CRS-Gb-VWN"/>
                             <constraint firstItem="K1d-4f-UeF" firstAttribute="centerX" secondItem="9od-Ki-a0d" secondAttribute="centerX" id="Hte-Tr-pZX"/>
-                            <constraint firstItem="jcw-bW-h1c" firstAttribute="height" secondItem="tv5-5P-Dzv" secondAttribute="height" id="IAI-An-7l8"/>
+                            <constraint firstItem="tv5-5P-Dzv" firstAttribute="width" secondItem="jcw-bW-h1c" secondAttribute="width" id="KLb-jS-Ghz"/>
                             <constraint firstItem="K1d-4f-UeF" firstAttribute="width" secondItem="9od-Ki-a0d" secondAttribute="width" multiplier="0.7" id="QNr-jC-Vh0"/>
-                            <constraint firstItem="tv5-5P-Dzv" firstAttribute="height" secondItem="K1d-4f-UeF" secondAttribute="height" id="VYu-V6-LN8"/>
-                            <constraint firstItem="jcw-bW-h1c" firstAttribute="centerX" secondItem="tv5-5P-Dzv" secondAttribute="centerX" id="aQc-e1-ImI"/>
+                            <constraint firstItem="jcw-bW-h1c" firstAttribute="top" secondItem="tv5-5P-Dzv" secondAttribute="bottom" constant="10" id="Sik-bE-MXH"/>
+                            <constraint firstItem="K1d-4f-UeF" firstAttribute="top" secondItem="jcw-bW-h1c" secondAttribute="bottom" constant="10" id="Xxk-0V-H5l"/>
+                            <constraint firstItem="jcw-bW-h1c" firstAttribute="centerX" secondItem="K1d-4f-UeF" secondAttribute="centerX" id="YCg-o8-Lfk"/>
+                            <constraint firstItem="jcw-bW-h1c" firstAttribute="width" secondItem="K1d-4f-UeF" secondAttribute="width" id="aUp-UY-p9M"/>
                             <constraint firstItem="VuB-EN-cpo" firstAttribute="centerX" secondItem="9od-Ki-a0d" secondAttribute="centerX" id="aXq-gh-m0U"/>
                             <constraint firstItem="Mki-hf-LZm" firstAttribute="top" secondItem="K1d-4f-UeF" secondAttribute="bottom" constant="10" id="fV0-55-dJB"/>
-                            <constraint firstItem="K1d-4f-UeF" firstAttribute="top" secondItem="tv5-5P-Dzv" secondAttribute="bottom" constant="10" id="kfG-nU-cPp"/>
-                            <constraint firstItem="tv5-5P-Dzv" firstAttribute="top" secondItem="jcw-bW-h1c" secondAttribute="bottom" constant="14" id="m9C-6K-sBu"/>
-                            <constraint firstItem="tv5-5P-Dzv" firstAttribute="width" secondItem="K1d-4f-UeF" secondAttribute="width" id="qb1-CH-85n"/>
-                            <constraint firstItem="tv5-5P-Dzv" firstAttribute="centerX" secondItem="9od-Ki-a0d" secondAttribute="centerX" id="sv0-KG-06I"/>
+                            <constraint firstItem="tv5-5P-Dzv" firstAttribute="centerX" secondItem="jcw-bW-h1c" secondAttribute="centerX" id="jdu-zZ-pw7"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="g89-0D-uN9">
