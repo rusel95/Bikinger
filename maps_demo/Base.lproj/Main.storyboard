@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="zly-7x-Dmk">
-    <device id="retina4_0" orientation="portrait">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="zly-7x-Dmk">
+    <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -19,15 +19,15 @@
                         <viewControllerLayoutGuide type="bottom" id="Mki-hf-LZm"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="9od-Ki-a0d" userLabel="mainView">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VuB-EN-cpo">
-                                <rect key="frame" x="0.0" y="64" width="320" height="568"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="адрес прибытия" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="K1d-4f-UeF">
-                                <rect key="frame" x="48" y="508" width="224" height="30"/>
+                                <rect key="frame" x="62" y="676" width="290" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -36,7 +36,7 @@
                                 </connections>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="адрес отправки" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tv5-5P-Dzv">
-                                <rect key="frame" x="48" y="428" width="224" height="30"/>
+                                <rect key="frame" x="62" y="596" width="290" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -45,7 +45,7 @@
                                 </connections>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jcw-bW-h1c">
-                                <rect key="frame" x="48" y="468" width="224" height="30"/>
+                                <rect key="frame" x="62" y="636" width="290" height="30"/>
                                 <color key="backgroundColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <state key="normal" title="Добавить Промежуточную Точку">
@@ -59,19 +59,19 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="tv5-5P-Dzv" firstAttribute="height" secondItem="jcw-bW-h1c" secondAttribute="height" id="0kk-KE-rfS"/>
-                            <constraint firstItem="VuB-EN-cpo" firstAttribute="top" secondItem="Dd7-VR-JrA" secondAttribute="bottom" id="4Tk-Lh-C0l"/>
                             <constraint firstItem="jcw-bW-h1c" firstAttribute="height" secondItem="K1d-4f-UeF" secondAttribute="height" id="4x9-zk-U6Y"/>
-                            <constraint firstItem="VuB-EN-cpo" firstAttribute="height" secondItem="9od-Ki-a0d" secondAttribute="height" id="BId-Et-XcX"/>
-                            <constraint firstItem="VuB-EN-cpo" firstAttribute="width" secondItem="9od-Ki-a0d" secondAttribute="width" id="CRS-Gb-VWN"/>
+                            <constraint firstItem="VuB-EN-cpo" firstAttribute="height" secondItem="9od-Ki-a0d" secondAttribute="height" id="CuZ-xS-ZFU"/>
                             <constraint firstItem="K1d-4f-UeF" firstAttribute="centerX" secondItem="9od-Ki-a0d" secondAttribute="centerX" id="Hte-Tr-pZX"/>
                             <constraint firstItem="tv5-5P-Dzv" firstAttribute="width" secondItem="jcw-bW-h1c" secondAttribute="width" id="KLb-jS-Ghz"/>
                             <constraint firstItem="K1d-4f-UeF" firstAttribute="width" secondItem="9od-Ki-a0d" secondAttribute="width" multiplier="0.7" id="QNr-jC-Vh0"/>
+                            <constraint firstItem="VuB-EN-cpo" firstAttribute="width" secondItem="9od-Ki-a0d" secondAttribute="width" id="QSz-Yb-SX3"/>
                             <constraint firstItem="jcw-bW-h1c" firstAttribute="top" secondItem="tv5-5P-Dzv" secondAttribute="bottom" constant="10" id="Sik-bE-MXH"/>
                             <constraint firstItem="K1d-4f-UeF" firstAttribute="top" secondItem="jcw-bW-h1c" secondAttribute="bottom" constant="10" id="Xxk-0V-H5l"/>
                             <constraint firstItem="jcw-bW-h1c" firstAttribute="centerX" secondItem="K1d-4f-UeF" secondAttribute="centerX" id="YCg-o8-Lfk"/>
+                            <constraint firstItem="VuB-EN-cpo" firstAttribute="centerY" secondItem="9od-Ki-a0d" secondAttribute="centerY" id="Z8a-Ox-4g2"/>
                             <constraint firstItem="jcw-bW-h1c" firstAttribute="width" secondItem="K1d-4f-UeF" secondAttribute="width" id="aUp-UY-p9M"/>
-                            <constraint firstItem="VuB-EN-cpo" firstAttribute="centerX" secondItem="9od-Ki-a0d" secondAttribute="centerX" id="aXq-gh-m0U"/>
                             <constraint firstItem="Mki-hf-LZm" firstAttribute="top" secondItem="K1d-4f-UeF" secondAttribute="bottom" constant="30" id="fV0-55-dJB"/>
+                            <constraint firstItem="VuB-EN-cpo" firstAttribute="centerX" secondItem="9od-Ki-a0d" secondAttribute="centerX" id="hMT-C9-KiI"/>
                             <constraint firstItem="tv5-5P-Dzv" firstAttribute="centerX" secondItem="jcw-bW-h1c" secondAttribute="centerX" id="jdu-zZ-pw7"/>
                         </constraints>
                     </view>
